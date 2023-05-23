@@ -1,10 +1,42 @@
-import { Schema, model } from 'mongoose';
+import { Model, Schema, model } from 'mongoose';
+import bcrypt from 'bcrypt';
 
 
-const UserSchema = new Schema({
+
+interface IUser extends Document {
+    email: string,
+    password: string,
+    _doc: any
+}
+  
+  // User instance method (s)
+  interface IUserMethods {
+    isValidPassword(password: string): boolean;
+  }
+  
+  // Model type for IUserMethods...
+  type UserModel = Model<IUser, {}, IUserMethods>;
+
+
+const UserSchema = new Schema<IUser, UserModel, IUserMethods>({
     email: { type: String, required: true },
     password: { type: String, required: true }
 });
 
 
-export const userModel = model('User', UserSchema);
+
+UserSchema.pre('save', async function(next) {
+    const hash = await bcrypt.hash(this.password, 10);
+    this.password = hash;
+    next();
+});
+
+
+UserSchema.method('isValidPassword', async function isValidPassword(password) {
+    const result: boolean = await bcrypt.compare(password, this.password);
+    return result;
+});
+    
+
+
+export const User = model<IUser, UserModel>('User', UserSchema);

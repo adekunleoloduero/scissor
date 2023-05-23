@@ -1,4 +1,3 @@
 {
-    "watch": ["src"],
-    "ext": ".js,.ts"
+    "ext": ".js,.ts,.env"
 }
