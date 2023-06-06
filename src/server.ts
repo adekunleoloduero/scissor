@@ -11,7 +11,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(cookieParser());
 
-//Register routes
+//Routes
 app.use('/', routes());
 
 //Error handler
