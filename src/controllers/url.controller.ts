@@ -39,7 +39,14 @@ export const shortUrlController = async function (req: express.Request, res: exp
 
  export const customShortUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
     const { longUrl } = req.body;
-    const baseUrl = config.BASE_URL
+    let baseUrl;
+    if (req.body.customDomain) {
+        baseUrl = req.body.customDomain;
+    } else {
+        baseUrl = config.BASE_URL;
+    }
+   
+    const userId = req.user.id;
 
     //Validate the base url
     if (!validUrl.isUri(baseUrl)) {
@@ -49,8 +56,8 @@ export const shortUrlController = async function (req: express.Request, res: exp
     try {
         //Validate the original url before proceeding
         if (validUrl.isUri(longUrl)) {
-            const url = await customShortUrlService(req.body);
-            return res.status(200).json({ shortUrl: url.shortUrl });
+            const url = await customShortUrlService(req.body, userId, baseUrl);
+            return res.status(200).json(url);
         } else {
             return res.status(400).json('Invalid or broken url');
         }
@@ -59,7 +66,6 @@ export const shortUrlController = async function (req: express.Request, res: exp
         next(error);
     }
  }
-
 
 
 
@@ -78,9 +84,9 @@ export const shortUrlController = async function (req: express.Request, res: exp
 
 
  export const urlsAnalyticsController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    const mostActive = req.query;
     try {
-        const urls = await urlsAnalyticsService(mostActive);
+        const userId = req.user.id;
+        const urls = await urlsAnalyticsService(userId);
         return res.status(200).json(urls);
     } catch(error) {
         console.log(error);

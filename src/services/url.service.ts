@@ -22,20 +22,21 @@ export const shortUrlService = async (longUrl: string) => {
  }
 
 
- export const customShortUrlService = async (longUrl: string) => {
-    let url = await Url.findOne({ longUrl });
+ export const customShortUrlService = async (body: Record<string, any>, userId: string, baseUrl: string) => {
+    let url = await Url.findOne({ longUrl: body.longUrl, userId });
     if (url) {
         return url;
     } else {
         const urlCode = shortId.generate();
-        const baseUrl = config.BASE_URL;
         const shortUrl = `${baseUrl}/${urlCode}`;
-        url = new Url({
-            longUrl,
+        const data = {
+            userId,
+            longUrl: body.longUrl,
             shortUrl,
             urlCode
-        });
-        return await url.save();
+        }
+        url = await Url.create(data);
+        return url;
     }
  }
 
@@ -49,23 +50,12 @@ export const returnLongUrlService = async (urlCode: string, clientIp: string) =>
  }
 
 
- export const urlsAnalyticsService = async (mostActive: Record<string, any>) => {
-    const sortBy: Record<string, any> = {}
-    if (mostActive) {
-        sortBy.clientIpsCount = 1
-    } else {
-        sortBy.clientIpsCount = -1
-    }
-    
-    const urls = await Url.find()
-    .sort(sortBy)
-    .skip(5)
+ export const urlsAnalyticsService = async (userId: string) => {
+    const urls = await Url.find({ userId })
+    .sort({ clientIpsCount: -1 })
     .limit(5)
     .exec();
     return urls;
  }
 
- export const getUrlByLongUrService = async (longUrl: string) => {
-    const url = await Url.findOne({ longUrl });
-    return url;
- }
+ 
