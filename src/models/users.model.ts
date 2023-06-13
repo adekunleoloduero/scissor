@@ -14,7 +14,7 @@ interface IUser extends Document {
     isValidPassword(password: string): boolean;
   }
   
-  // Model type for IUserMethods...
+  // Model type for IUserMethods
   type UserModel = Model<IUser, {}, IUserMethods>;
 
 
@@ -39,4 +39,4 @@ UserSchema.method('isValidPassword', async function isValidPassword(password) {
     
 
 
-export const User = model<IUser, UserModel>('User', UserSchema);
+export const User = model<IUser, UserModel>('users', UserSchema);
