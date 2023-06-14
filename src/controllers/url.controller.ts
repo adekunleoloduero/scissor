@@ -4,7 +4,8 @@ import {
     shortUrlService,
     returnLongUrlService,
     customShortUrlService,
-    urlsAnalyticsService 
+    urlsAnalyticsService,
+    urlsHistoryService 
 } from '../services/url.service';
 
 import * as validUrl from 'valid-url';
@@ -84,9 +85,11 @@ export const shortUrlController = async function (req: express.Request, res: exp
 
 
  export const urlsAnalyticsController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
+    const page = req.query.page as string;
+    const limit = req.query.limit as string;
     try {
         const userId = req.user.id;
-        const urls = await urlsAnalyticsService(userId);
+        const urls = await urlsAnalyticsService(userId, page, limit);
         return res.status(200).json(urls);
     } catch(error) {
         console.log(error);
@@ -95,61 +98,18 @@ export const shortUrlController = async function (req: express.Request, res: exp
  }
 
 
-//Create normal shortened url
-// export const getShortenedUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-//     const { longUrl } = req.body;
-//     const baseUrl = config.BASE_URL
-
-//     //Validate the base url
-//     if (!validUrl.isUri(baseUrl)) {
-//         return res.status(400).json('Invalid base url or domain');
-//     }
-
-//     try {
-//         //Validate the original url
-//         if (validUrl.isUri(longUrl)) {
-//             let url = await getUrlByLongUrService(longUrl);
-//             if (url) { 
-//                 //Return the shortUrl if given url is already in the DB
-//                 return res.status(200).json({shortUrl: url.shortUrl});
-//             } else {
-//                 //Create the url if it's not in the DB then return the shortUrl 
-//                 url = await createShortUrlService(longUrl);
-//                 return res.status(200).json({shortUrl: url.shortUrl});
-//             }
-//         } else {
-//             return res.status(400).json('Invalid or broken url');
-//         }
-//     } catch(error) {
-//         console.log(error);
-//         next(error);
-//     }
-//  } 
+ export const urlsHistoryController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
+    const userId = req.user.id as string;
+    const page = req.query.page as string;
+    const limit = req.query.limit as string;
+    
+    try {
+        const urls = await urlsHistoryService(userId, page, limit);
+        return res.status(200).json(urls);
+    } catch(error) {
+        console.log(error);
+        next(error);
+    }
+ }
 
 
-// //Create custom shortened url
-// export const createCustomShortUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-//     const { longUrl } = req.body;
-//     const baseUrl = config.BASE_URL
-
-//     //Validate the base url
-//     if (!validUrl.isUri(baseUrl)) {
-//         return res.status(400).json('Invalid base url or domain');
-//     }
-
-//     try {
-//         //Validate the original url
-//         if (validUrl.isUri(longUrl)) {
-//             const url = await createShortUrlService(longUrl);
-//             return res.status(200).json(url);
-//         } else {
-//             return res.status(400).json('Invalid or broken url');
-//         }
-//     } catch(error) {
-//         console.log(error);
-//         next(error);
-//     }
-//  } 
-
-
- 

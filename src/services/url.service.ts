@@ -50,12 +50,41 @@ export const returnLongUrlService = async (urlCode: string, clientIp: string) =>
  }
 
 
- export const urlsAnalyticsService = async (userId: string) => {
+ export const urlsAnalyticsService = async (userId: string, page: string, limit: string) => {
+    const pageValue = parseInt(page);
+    const limitValue = parseInt(limit);
+
     const urls = await Url.find({ userId })
     .sort({ clientIpsCount: -1 })
-    .limit(5)
+    .limit(limitValue)
+    .skip((pageValue - 1) * limitValue)
     .exec();
-    return urls;
+    
+    const totalPages = await Url.count({ userId });
+    return {
+        urls,
+        totalPages,
+        currentPage: pageValue
+    };
+ }
+
+
+ export const urlsHistoryService = async (userId: string, page: string, limit: string) => {
+    const pageValue = parseInt(page);
+    const limitValue = parseInt(limit);
+
+    const urls = await Url.find({ userId })
+    .sort({ createdAt: -1 })
+    .limit(limitValue)
+    .skip((pageValue - 1) * limitValue)
+    .exec();
+
+    const totalPages = await Url.count({ userId });
+    return {
+        urls,
+        totalPages,
+        currentPage: pageValue
+    };
  }
 
  
