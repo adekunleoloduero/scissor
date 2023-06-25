@@ -17,7 +17,15 @@ import * as jwt from 'jsonwebtoken';
         }
         const user = await User.create(req.body);
         const { password, ...others } = user._doc;
-        return res.status(201).json(others);
+        const token: string = jwt.sign({id: user._id, email: user.email }, config.JWT_SECRET, { expiresIn: '1d'});
+        return res.status(201)
+        .cookie('access_token', token, {
+            httpOnly: true,
+            expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
+        })
+        .json({ user: others, token });
+        // const { password, ...others } = user._doc;
+        // return res.status(201).json(others);
     } catch(error) {
         console.log(error);
         next(error);

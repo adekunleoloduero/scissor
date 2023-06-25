@@ -1,18 +1,26 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import routes from './routes';
+import cors from 'cors';
 
 const app = express();
+
+//Configure cors
+app.use(cors())
 
 
 //Parse request body
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(cookieParser());
 
+
+
+
 //Routes
 app.use('/', routes());
+
 
 //Error handler
 const errorHandler: express.ErrorRequestHandler = (error, req, res, next) => {
