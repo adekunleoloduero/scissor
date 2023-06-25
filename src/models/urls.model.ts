@@ -1,5 +1,14 @@
 import { Model, Schema, model } from 'mongoose';
 
+interface IP {
+  ip: string,
+  count: string,
+  countryCode: string,
+  countryName: string,
+  city: string,
+  region: string
+}
+
 
 interface IUrl {
   userId: string | undefined,
@@ -7,8 +16,8 @@ interface IUrl {
   shortUrl: string
   urlCode: string,
   clientIps: string[],
-  clientIpsCount: number,
   customDomain: string,
+  qrCode: string,
   createdAt: Date,
 }
   
@@ -29,8 +38,8 @@ const UrlSchema = new Schema<IUrl, UrlModel, IUrlMethods>({
     clientIps: [
       { type: String }
     ],
-    clientIpsCount: { type: Number, default: 0},
     customDomain: { type: String },
+    qrCode: { type: String},
     createdAt: { type: Date, default: Date.now() }
 });
 
@@ -38,8 +47,6 @@ const UrlSchema = new Schema<IUrl, UrlModel, IUrlMethods>({
 UrlSchema.method('storeClientIp', async function storeClientIp(clientIp: string) {
   let ips = this.clientIps;
   ips.push(clientIp);
-  //Increment ips count
-  this.clientIpsCount = ips.length;
   //Store client ips
   this.clientIps = ips;
 });

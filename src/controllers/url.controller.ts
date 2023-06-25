@@ -1,11 +1,11 @@
 import express  from 'express';
 
+
 import { 
-    shortUrlService,
+    shortenUrlService,
     returnLongUrlService,
-    customShortUrlService,
-    urlsAnalyticsService,
-    urlsHistoryService 
+    urlsHistoryService,
+    getUrlByIdService
 } from '../services/url.service';
 
 import * as validUrl from 'valid-url';
@@ -13,32 +13,7 @@ import { config } from '../configs';
 import * as requestIp from 'request-ip';
 
 
-
-export const shortUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    const { longUrl } = req.body;
-    const baseUrl = config.BASE_URL
-
-    //Validate the base url
-    if (!validUrl.isUri(baseUrl)) {
-        return res.status(400).json('Invalid base url or domain');
-    }
-
-    try {
-        //Validate the original url before proceeding
-        if (validUrl.isUri(longUrl)) {
-            const url = await shortUrlService(longUrl);
-            return res.status(200).json({ shortUrl: url.shortUrl });
-        } else {
-            return res.status(400).json('Invalid or broken url');
-        }
-    } catch(error) {
-        console.log(error);
-        next(error);
-    }
- }
-
-
- export const customShortUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
+export const shortenUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
     const { longUrl } = req.body;
     let baseUrl;
     if (req.body.customDomain) {
@@ -57,7 +32,7 @@ export const shortUrlController = async function (req: express.Request, res: exp
     try {
         //Validate the original url before proceeding
         if (validUrl.isUri(longUrl)) {
-            const url = await customShortUrlService(req.body, userId, baseUrl);
+            const url = await shortenUrlService(req.body, userId, baseUrl);
             return res.status(200).json(url);
         } else {
             return res.status(400).json('Invalid or broken url');
@@ -76,21 +51,21 @@ export const shortUrlController = async function (req: express.Request, res: exp
     const clientIp = requestIp.getClientIp(req) as string;
     try {
         const url = await returnLongUrlService(urlCode, clientIp);
-        return res.status(200).json({ longUrl: url?.longUrl });
+        const shortUrl = url?.shortUrl || '/';
+        return res.status(300).json({ longUrl: url?.longUrl })
+        .redirect(shortUrl);
     } catch(error) {
         console.log(error);
         next(error);
     }
  }
 
-
- export const urlsAnalyticsController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    const page = req.query.page as string;
-    const limit = req.query.limit as string;
+//Get url by urlCode
+ export const getUrlByIdController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
+    const id = req.params.id;
     try {
-        const userId = req.user.id;
-        const urls = await urlsAnalyticsService(userId, page, limit);
-        return res.status(200).json(urls);
+        const url = await getUrlByIdService(id);
+        return res.status(200).json(url);
     } catch(error) {
         console.log(error);
         next(error);
@@ -98,7 +73,7 @@ export const shortUrlController = async function (req: express.Request, res: exp
  }
 
 
- export const urlsHistoryController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
+export const urlsHistoryController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
     const userId = req.user.id as string;
     const page = req.query.page as string;
     const limit = req.query.limit as string;
@@ -111,5 +86,19 @@ export const shortUrlController = async function (req: express.Request, res: exp
         next(error);
     }
  }
+
+
+//  export const urlsAnalyticsController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
+//     const page = req.query.page as string;
+//     const limit = req.query.limit as string;
+//     try {
+//         const userId = req.user.id;
+//         const urls = await urlsAnalyticsService(userId, page, limit);
+//         return res.status(200).json(urls);
+//     } catch(error) {
+//         console.log(error);
+//         next(error);
+//     }
+//  }
 
 
