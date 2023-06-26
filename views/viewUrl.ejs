@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Url</title>
+</head>
+<body>
+    <%- include('partials/header') %>
+    <main class="container">
+        <div>
+            <h3>Original/Long URL</h3>
+            <p><%= url.longUrl ? url.longUrl : 'Not Available' %></p>
+        </div>
+        <div>
+            <h3>Short URL</h3>
+            <p><%= url.shortUrl ? url.shortUrl : 'Not Available' %></p>
+        </div>
+        <div class="qrcode-img">
+            <img src="<%= url.qrCode ? url.qrCode : '' %>" alt="QR Code">
+            <button>Download</button>
+        </div>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>

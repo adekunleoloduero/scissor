@@ -2,6 +2,7 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import routes from './routes';
 import cors from 'cors';
+import ejs from 'ejs';
 
 const app = express();
 
@@ -16,10 +17,25 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 
+//Configure view
+app.set('view engine', 'ejs');
+app.set('views', 'views');
+
+
+//Configure static file
+app.use(express.static('public'));
 
 
 //Routes
 app.use('/', routes());
+
+
+app.get('/', async (req, res, next) => {
+    res.status(200)
+    .render('home', {
+        page: 'home'
+    });
+})
 
 
 //Error handler
@@ -28,12 +44,25 @@ const errorHandler: express.ErrorRequestHandler = (error, req, res, next) => {
         next()
     }
     console.log(error);
-    return res.status(500).json("Internal Server Error");
+    if (req.header('Content-type') == 'application/json') {
+        return res.status(500).json("Internal Server Error");
+    } else {
+        return res.status(500).render('serverError', {
+            pageTitle: 'Server Error'
+        })
+    }
 }
 app.use(errorHandler);
 
 app.get('*', (req: express.Request, res: express.Response) => {
-    return res.status(404).json("Not Found");
+    if (req.header('Content-type') == 'application/json') {
+        return res.status(404).json("Not Found");
+    } else {
+        return res.status(404).render('notFound', {
+            pageTitle: 'Not Found'
+        })
+    }
+
 })
 
 

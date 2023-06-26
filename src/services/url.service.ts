@@ -5,25 +5,7 @@ import { config } from '../configs';
 
 
 
-// export const shortUrlService = async (longUrl: string) => {
-//     let url = await Url.findOne({ longUrl });
-//     if (url) {
-//         return url;
-//     } else {
-//         const urlCode = shortId.generate();
-//         const baseUrl = config.BASE_URL;
-//         const shortUrl = `${baseUrl}/${urlCode}`;
-//         url = new Url({
-//             longUrl,
-//             shortUrl,
-//             urlCode
-//         });
-//         return await url.save();
-//     }
-//  }
-
-
- export const shortenUrlService = async (body: Record<string, any>, userId: string, baseUrl: string) => {
+export const shortenUrlService = async (body: Record<string, any>, userId: string, baseUrl: string) => {
     let url = await Url.findOne({ longUrl: body.longUrl, userId });
     if (url) {
         return url;
@@ -83,5 +65,16 @@ export const urlsHistoryService = async (userId: string, page: string, limit: st
  }
 
 
+ export const viewUrlService = async (id: string) => {
+    const url = await Url.findById(id)
+   return url;
+ }
+
+
+
+ export const deleteUrlService = async (id: string) => {
+    const url = await Url.findByIdAndDelete(id)
+    return url;
+ }
  
  

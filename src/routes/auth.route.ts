@@ -1,6 +1,9 @@
 import express from 'express';
-import { signUp, signIn, logOut } from '../controllers/auth.controller';
-
+import { 
+    signUp, 
+    signIn, 
+    logOut
+} from '../controllers/auth.controller';
 
 
 

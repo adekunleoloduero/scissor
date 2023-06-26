@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confirm URL Deletion</title>
+    <link rel="stylesheet" href="/main.css">
+</head>
+<body>
+    <%- include('partials/header') %>
+    <main class="container">
+        <h1>Delete URL</h1>
+        <h3>Confirm if you want to delete this URL:</h3>
+        <div>
+            <div>
+                <h3>Description</h3>
+                <p><%= description ? description : '' %></p> 
+             </div>
+             <div>
+                 <h3>Short URL</h3>
+                 <p><%= shortUrl ? shortUrl : '' %></p> 
+              </div>
+             <a href="/urls/delete/<%= _id %>">Delete</a>    
+             <a href="/urls/history/1/5">Cancel</a>
+        </div>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>

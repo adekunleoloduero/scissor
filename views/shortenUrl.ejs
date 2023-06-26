@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shorten Url</title>
+</head>
+<body>
+    <%- include('partials/header') %>
+    <main class="container">
+        <form action="/urls/shorten" method="POST">
+            <div class="form-control">
+                <label for="long-url">URL</label><br>
+                <input type="text" name="longUrl" id="long-url" placeholder="Paste URL to shorten here" required>
+            </div>
+            <div class="form-control">
+                <label for="custom-domain">Custom Domain (Optional)</label><br>
+                <input type="text" name="customDomain" id="custom-domain" placeholder="Provide a Custom Domain (Optional)">
+            </div>
+            <input type="submit" value="Shorten"> 
+        </form>
+    </main>
+    <%- include('partials/footer') %>
+</body>
+</html>

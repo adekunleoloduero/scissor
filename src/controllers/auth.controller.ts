@@ -13,19 +13,32 @@ import * as jwt from 'jsonwebtoken';
         //Check if user is already registered
         const existingUser = await User.findOne({ email });
         if (existingUser) {
-            return res.status(403).json('This email is already registered.');
+            if (req.header("Content-type") == "application/json") {
+                return res.status(403).json('This email is already registered.');
+            } else {
+                return res.status(403).render('signUp', {
+                    pageTitle: 'Signup',
+                    message: 'This email is already registered.'
+                });
+            }
         }
         const user = await User.create(req.body);
         const { password, ...others } = user._doc;
         const token: string = jwt.sign({id: user._id, email: user.email }, config.JWT_SECRET, { expiresIn: '1d'});
-        return res.status(201)
-        .cookie('access_token', token, {
-            httpOnly: true,
-            expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
-        })
-        .json({ user: others, token });
-        // const { password, ...others } = user._doc;
-        // return res.status(201).json(others);
+
+        if (req.header("Content-type") == "application/json") {
+            return res.status(201)
+                .cookie('access_token', token, {
+                httpOnly: true,
+                expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
+            }).json({ user, token });
+        } else {
+            return res.status(201)
+                .cookie('access_token', token, {
+                httpOnly: true,
+                expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
+            }).render('dashboard', user);
+        }
     } catch(error) {
         console.log(error);
         next(error);
@@ -37,23 +50,45 @@ import * as jwt from 'jsonwebtoken';
     try {
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
-            return res.status(400).json("Invalid email");
+            if (req.header("Content-type") == "application/json") {
+                return res.status(400).json("Invalid email");
+            } else {
+                return res.status(400).render('signIn', {
+                    pageTitle: 'Signin',
+                    message: 'Invalid email'
+                });
+            }
         }
 
         //Ckeck password correctness
         const validPassword = await user.isValidPassword(req.body.password);
         if (!validPassword) {
-            return res.status(400).json("Invalid password");
+            if (req.header("Content-type") == "application/json") {
+                return res.status(400).json("Invalid password");
+            } else {
+                return res.status(400).render('signUp', {
+                    pageTitle: 'Signup',
+                    message: 'Invalid password'
+                });
+            }
         }
 
         const { password, ...others } = user._doc;
         const token: string = jwt.sign({id: user._id, email: user.email }, config.JWT_SECRET, { expiresIn: '1d'});
-        return res.status(200)
-        .cookie('access_token', token, {
-            httpOnly: true,
-            expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
-        })
-        .json({ user: others, token });
+
+        if (req.header("Content-type") == "application/json") {
+            return res.status(201)
+                .cookie('access_token', token, {
+                httpOnly: true,
+                expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
+            }).json({ user, token });
+        } else {
+            return res.status(201)
+                .cookie('access_token', token, {
+                httpOnly: true,
+                expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
+            }).render('dashboard', user);
+        }
     } catch(error) {
         console.log(error);
         next(error)
