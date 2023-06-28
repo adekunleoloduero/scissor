@@ -5,21 +5,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shorten Url</title>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
     <%- include('partials/header') %>
-    <main class="container">
-        <form action="/urls/shorten" method="POST">
-            <div class="form-control">
-                <label for="long-url">URL</label><br>
-                <input type="text" name="longUrl" id="long-url" placeholder="Paste URL to shorten here" required>
-            </div>
-            <div class="form-control">
-                <label for="custom-domain">Custom Domain (Optional)</label><br>
-                <input type="text" name="customDomain" id="custom-domain" placeholder="Provide a Custom Domain (Optional)">
-            </div>
-            <input type="submit" value="Shorten"> 
-        </form>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 1.4em; color: rgba(0, 0, 0, 0.836);">Shorten URL</h2>
+        <div class="container">
+            <form action="/urls/shorten" method="POST">
+                <div class="form-control">
+                    <label for="long-url">URL</label><br>
+                    <input type="text" name="longUrl" id="long-url" placeholder="Paste URL to shorten here" required>
+                </div>
+                <div class="form-control">
+                    <label for="custom-domain">Custom Domain (Optional)</label><br>
+                    <input type="text" name="customDomain" id="custom-domain" placeholder="Provide a Custom Domain (Optional)">
+                </div>
+                <div class="form-control">
+                    <label for="description">Description</label><br>
+                    <textarea name="description" id="description" cols="30" rows="5" required placeholder="Enter a short description for the URL..."></textarea>
+                </div>
+                <div class="form-control">
+                    <input type="submit" value="Shorten"> 
+                </div>
+            </form>
+        </div>
     </main>
     <%- include('partials/footer') %>
 </body>

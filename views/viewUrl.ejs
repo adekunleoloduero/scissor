@@ -5,21 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>View Url</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/view_url.css">
 </head>
 <body>
     <%- include('partials/header') %>
-    <main class="container">
-        <div>
-            <h3>Original/Long URL</h3>
-            <p><%= url.longUrl ? url.longUrl : 'Not Available' %></p>
-        </div>
-        <div>
-            <h3>Short URL</h3>
-            <p><%= url.shortUrl ? url.shortUrl : 'Not Available' %></p>
-        </div>
-        <div class="qrcode-img">
-            <img src="<%= url.qrCode ? url.qrCode : '' %>" alt="QR Code">
-            <button>Download</button>
+    <main>
+        <ul id="view-url-sidebar">
+            <li><a href="#" class="view-analytics-btn">View Analytics</a></li>
+            <li><a href="#" class="view-analytics-btn">Download QR Code</a></li>
+        </ul>
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 1.4em; color: rgba(0, 0, 0, 0.836);">View URL</h2>
+            <div class="url-items">
+                <div class="url-fields">
+                    <div class="description">
+                        <h3>Description</h3>
+                        <p><%= url.description ? url.description : 'Not Available' %></p>
+                    </div>
+                    <div class="short-url">
+                        <h3>Short URL</h3>
+                        <p><%= url.shortUrl ? url.shortUrl : 'Not Available' %></p>
+                        <button id="copy-short-url">Copy</button>
+                    </div>
+                </div>
+                <div class="qrcode">
+                    <h3 style="margin-bottom: 0.8em; margin-left: 10px;">Scan QR Code</h3>
+                    <img src="<%= url.qrCode ? url.qrCode : '' %>" alt="QR Code">
+                </div>
+            </div>
         </div>
     </main>
     <%- include('partials/footer') %>

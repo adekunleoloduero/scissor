@@ -6,7 +6,7 @@ import {
     // urlsAnalyticsController,
     getUrlByIdController,
     urlsHistoryController,
-    viewUrlController,
+    // viewUrlController,
     deleteUrlController
 } from '../controllers/url.controller';
 
@@ -19,14 +19,14 @@ export default (router: express.Router ): void => {
     router.get('/:urlCode', returnLongUrlController);
 
     //View URL
-    router.get('/urls/view/:id', authenticateUser, viewUrlController);
+    // router.get('/urls/view/:id', authenticateUser, viewUrlController);
     // router.get('/urls/analytics/:id', authenticateUser, urlsAnalyticsController);
     
-    //Get URL by
+    // //Get URL by
     router.get('/urls/:id', authenticateUser, getUrlByIdController);
 
     //URLs history
-    router.get('/urls/history/:page/:limit', authenticateUser, urlsHistoryController);
+    router.get('/urls/history/:page', authenticateUser, urlsHistoryController);
 
     //Shorten URL
     router.post('/urls/shorten', authenticateUser, shortenUrlController);

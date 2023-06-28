@@ -5,33 +5,44 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URLs History</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/url_history.css">
 </head>
 <body>
     <%- include('partials/header') %>
-    <main class="container">
-        <h2>URLs History</h2>
-        <% if (urlsHistory.urls && urlsHistory.urls.length > 0) { %>
-            <% for (let i = 0; i < urlsHistory.urls.length; i++) { %>
-                <div>
-                    <div>
-                        <h3>Description</h3>
-                        <p><%= urlsHistory.urls[i].description ? urlsHistory.urls[i].description : 'Not Available' %></p>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 1.4em; color: rgba(0, 0, 0, 0.836);">URLs History</h2>
+        <div class="container">
+            <% if (urlsHistory.urls && urlsHistory.urls.length > 0) { %>
+                <% for (let i = 0; i < urlsHistory.urls.length; i++) { %>
+                    <div class="url-summary">
+                        <div class="url-info">
+                            <div>
+                                <h4>Description</h4>
+                                <p><%= urlsHistory.urls[i].description ? urlsHistory.urls[i].description : 'Not Available' %></p>
+                            </div>
+                            <div>
+                                <h4>Short URL</h4>
+                                <p><%= urlsHistory.urls[i].shortUrl ? urlsHistory.urls[i].shortUrl : 'Not Available' %></p>
+                            </div>
+                            <div id="url-date">
+                                <p><%= urlsHistory.urls[i].createdAt ? urlsHistory.urls[i].createdAt : 'Not Available' %></p>
+                            </div>
+                        </div>
+                        <div class="url-actions">
+                            <a href="/urls/<%= urlsHistory.urls[i]._id %>" class="view-url">View</a>
+                            <a href="/urls/view/<%= urlsHistory.urls[i]._id %>" class="delete-url">Delete</a>
+                        </div>
                     </div>
-                    <div>
-                        <h3>Short URL</h3>
-                        <p><%= urlsHistory.urls[i].shortUrl ? urlsHistory.urls[i].shortUrl : 'Not Available' %></p>
-                    </div>
-                    <div>
-                        <h3>Date Created</h3>
-                        <p><%= urlsHistory.urls[i].createdAt ? urlsHistory.urls[i].createdAt : 'Not Available' %></p>
-                    </div>
-                    <a href="/urls/view/<%= urlsHistory.urls[i]._id %>" class="view-url">View</a>
-                    <a href="/urls/view/<%= urlsHistory.urls[i]._id %>" class="delete-url">Delete</a>
-                </div><hr>
+                <% } %>
+            <% } else { %>
+                <p>Your URLs history is currently empty.</p>
             <% } %>
-        <% } else { %>
-            <p>Your URLs history is currently empty.</p>
-        <% } %>
+        </div>
+        <div class="pagination">
+            <a href="/urls/history/<%= urlsHistory.currentPage - 1 %>"><< Previous</a>
+            <a href="/urls/history/<%= urlsHistory.currentPage + 1 %>">Next >></a>
+        </div>
     </main>
     <%- include('partials/footer') %>
 </body>

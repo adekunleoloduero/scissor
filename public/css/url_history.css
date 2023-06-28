@@ -1,0 +1,48 @@
+.url-summary {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.url-info {
+    background-color: rgba(0, 0, 0, 0.048);
+    border: none;
+    border-radius: 10px;
+    margin-bottom: 0.6em;
+    padding: 0.7em;
+}
+
+.url-info div {
+    margin-bottom: 0.7em;
+}
+
+
+/* .url-actions {
+    background-color: black;
+} */
+
+.url-actions a {
+    padding: 0.6em;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    text-decoration: none;
+
+}
+
+.view-url {
+    background-color: rgba(0, 0, 0, 0.733);
+    margin-right: 0.4em;
+}
+
+.delete-url {
+    background-color: tomato;
+}
+
+#empty-space {
+    margin-top: 150px;
+}
+
+#url-date {
+    font-size: 0.8em;
+}

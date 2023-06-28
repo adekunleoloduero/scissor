@@ -1,0 +1,164 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: 0;
+}
+
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+main {
+    width: 100%;
+    margin-top: 2em;
+}
+.container {
+    margin: 0 auto;
+    width: 700px;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+}
+
+header nav ul li {
+    display: inline-block;
+    margin-right: 35px;
+}
+
+header nav ul li a {
+    text-decoration: none;
+    padding: 10px;
+    color: rgba(0, 0, 0, 0.699);
+}
+
+header nav ul li a:hover {
+    color: tomato;
+}
+
+#empty-space {
+    margin-top: 250px;
+}
+
+footer {
+    margin-bottom: 30px;
+    text-align: center;
+    color: rgba(0, 0, 0, 0.699);
+}
+
+#logo {
+    margin-left: 30px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#logo a {
+    text-decoration: none;
+}
+
+#logo .dark-shade {
+    color: rgba(0, 0, 0, 0.836);
+}
+
+#logo .red {
+    color: tomato;    
+}
+
+footer {
+    font-size: 0.9em;
+}
+
+footer .dark-shade {
+    color: black;
+}
+
+footer p a {
+    color: black;
+    text-decoration: none;
+    border-bottom: 1px solid black;
+}
+
+footer p a:hover {
+    color: tomato;
+    border-bottom: 0;
+}
+
+
+
+
+/* Forms */
+.container {
+    width: 50%;
+    margin: 0 auto;
+}
+
+.container form {
+    width: 60%;
+    margin: 0 auto;
+}
+
+form+p {
+    text-align: center;
+    font-size: 0.9em;
+}
+
+form .form-control {
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 1.3em;
+    /* border: 1px solid black; */
+}
+
+.form-control input, .form-control textarea {
+    width: 94%;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.submit-button {
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 1em;
+    /* border: 1px solid black; */
+}
+
+input[type="submit"] {
+    width: 100%;
+    background-color: tomato;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+input[type="submit"]:hover {
+    background-color: rgba(255, 99, 71, 0.788);
+}
+
+
+/* Pagination */
+.pagination {
+    margin: 0 auto;
+    margin-top: 2em;
+    text-align: center;
+}
+
+
+.pagination a {
+    border: none;
+    padding: 0.8em;
+    background-color: rgba(0, 0, 0, 0.486);
+    color: white;
+    text-decoration: none;
+    margin-right: 0.5em;
+}
+
+.pagination a:hover {
+    background-color: rgba(0, 0, 0, 0.733);
+}

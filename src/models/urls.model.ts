@@ -13,6 +13,7 @@ interface IP {
 interface IUrl {
   userId: string | undefined,
   longUrl: string,
+  description: string,
   shortUrl: string
   urlCode: string,
   clientIps: string[],
@@ -33,6 +34,7 @@ interface IUrl {
 const UrlSchema = new Schema<IUrl, UrlModel, IUrlMethods>({
     userId: { type: Schema.Types.ObjectId, ref: 'users' },
     longUrl: { type: String, required: true },
+    description: { type: String, required: true },
     shortUrl: { type: String },
     urlCode: { type: String },
     clientIps: [

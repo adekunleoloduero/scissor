@@ -13,10 +13,7 @@ export const authenticateUser = async (req: express.Request, res: express.Respon
                 if (req.header("Content-type") == "application/json") {
                     return res.status(403).json("Invalid or expired cookie");
                 } else {
-                    return res.status(403).render('signin', {
-                        page: 'signin',
-                        message: 'Your session has expired'
-                    })
+                    return res.redirect('/pages/signin');
                 }
             }
             req.user = authData;
@@ -26,9 +23,7 @@ export const authenticateUser = async (req: express.Request, res: express.Respon
         if (req.header("Content-type") == "application/json") {
             return res.status(401).json("Un-authenticated");
         } else {
-            res.status(401).render('signin', {
-                page: "signin"
-            })
+            return res.redirect('/pages/signin');
         }
     }
 }

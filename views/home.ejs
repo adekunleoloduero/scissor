@@ -6,13 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
     <%- include('partials/header') %>
-    <main class="container">
-        <p>MinLink provides an effective URLs shortening service.</p>
-        <p>Ability to download the QR Code for your shortened URLs.</p>
-        <p>Also, you can provide an optional Custom Domain to be used in your URLs.</p>
+    <main>
+        <div class="container">
+            <p>MinLink (short for minimal link) provides an effective URLs shortening service.</p>
+            <p>Ability to download the QR Code for your shortened URLs.</p>
+            <p>Also, you can provide an optional Custom Domain to be used in your URLs.</p>
+            <a href="/pages/signup" id="home-signup-button">Get Started</a>
+        </div>
     </main>
     <%- include('partials/footer') %>
 </body>

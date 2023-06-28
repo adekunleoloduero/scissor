@@ -21,6 +21,7 @@ export const shortenUrlService = async (body: Record<string, any>, userId: strin
         const data = {
             userId,
             longUrl: body.longUrl,
+            description: body.description,
             shortUrl,
             urlCode,
             qrCode
@@ -41,38 +42,45 @@ export const returnLongUrlService = async (urlCode: string, clientIp: string) =>
 
 
  export const getUrlByIdService = async (id: string) => {
-    const url = await Url.findOne({ _id: id });
+    const url = await Url.findById(id);
     return url;
  }
 
 
-export const urlsHistoryService = async (userId: string, page: string, limit: string) => {
-    const pageValue = parseInt(page);
-    const limitValue = parseInt(limit);
+export const urlsHistoryService = async (userId: string, page: string) => {
+
+    let pageValue;
+    const count = await Url.count({ userId });
+    const totalPages = Math.ceil(count / 5);
+
+    if (parseInt(page) >= totalPages) {
+        pageValue === totalPages;
+    }
+
+    //Prevent the possiblity of accessing page zero
+    if (parseInt(page) < 1) {
+        pageValue = 1
+    } else {
+        pageValue = parseInt(page);
+    }
+    // const limitValue = parseInt(limit);
+
 
     const urls = await Url.find({ userId })
     .sort({ createdAt: -1 })
-    .limit(limitValue)
-    .skip((pageValue - 1) * limitValue)
+    .limit(5)
+    .skip((pageValue - 1) * 5)
     .exec();
 
-    const totalPages = await Url.count({ userId });
+    
     return {
         urls,
-        totalPages,
         currentPage: pageValue
     };
  }
 
 
- export const viewUrlService = async (id: string) => {
-    const url = await Url.findById(id)
-   return url;
- }
-
-
-
- export const deleteUrlService = async (id: string) => {
+export const deleteUrlService = async (id: string) => {
     const url = await Url.findByIdAndDelete(id)
     return url;
  }

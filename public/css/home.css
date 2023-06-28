@@ -1,0 +1,23 @@
+#home-signup-button {
+    display: block;
+    padding: 20px;
+    border: none;
+    background-color: tomato;
+    margin-top: 1.3em;
+    color: white;
+    text-decoration: none;
+    width: 120px;
+    text-align: center;
+}
+
+
+#home-signup-button:hover {
+    background-color: rgba(255, 99, 71, 0.911);
+}
+
+.container p {
+    line-height: 1.6;
+    font-weight: bold;
+    font-size: 1.4em;
+}
+

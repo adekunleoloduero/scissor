@@ -5,26 +5,32 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
     <%- include('partials/header') %>
-    <main class="container">
-        <form action="/auth/signup" method="POST">
-            <div class="form-control">
-                <label for="username">Username</label><br>
-                <input type="text" value="username" id="username" placeholder="Enter your username" required>
-            </div>
-            <div class="form-control">
-                <label for="email">Email</label><br>
-                <input type="email" name="email" id="email" placeholder="Enter your email" required>
-            </div>
-            <div class="form-control">
-                <label for="password">Password</label><br>
-                <input type="password" name="password" id="password" placeholder="Enter your password" required>
-            </div>
-            <input type="submit" value="Sign Up">
-        </form>
-        <p>Already have an account? <a href="/signin">Sign In</a></p>
+    <main>
+        <h2 style="text-align: center; margin-bottom: 1.4em; color: rgba(0, 0, 0, 0.836);">Sign Up</h2>
+        <div class="container">
+            <form action="/auth/signup" method="POST">
+                <div class="form-control">
+                    <label for="username">Username</label><br>
+                    <input type="text" name="username" id="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-control">
+                    <label for="email">Email</label><br>
+                    <input type="email" name="email" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="form-control">
+                    <label for="password">Password</label><br>
+                    <input type="password" name="password" id="password" placeholder="Enter your password" required>
+                </div>
+                <div class="submit-button">
+                    <input type="submit" value="Sign Up">
+                </div>
+            </form>
+            <p>Already have an account? <a href="/signin">Sign In</a></p>
+        </div>
     </main>
     <%- include('partials/footer') %>
 </body>

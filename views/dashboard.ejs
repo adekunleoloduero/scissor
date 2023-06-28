@@ -5,18 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/dashboard.css">
 </head>
 <body>
     <%- include('partials/header') %>
-    <main class="container">
-        <h1>Dashboard</h1>
-            <p><%= email ? email : 'Not available' %></p>
-            <div id="dashboard-sidebar">
-                <ul>
-                    <li><a href="/pages/shorten-url">Shorten URL</a></li>
-                    <li><a href="/urls/history/1/5">URLs History</a></li>
-                </ul>
+    <main>
+        <div id="dashboard-sidebar">
+            <ul>
+                <li><a href="/pages/shorten-url">Shorten URL</a></li>
+                <li><a href="/urls/history/1">URLs History</a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <h2 style="text-align: center; margin-bottom: 1.4em; color: rgba(0, 0, 0, 0.836);">Dashboard</h2>
+            <div id="user-profile">
+                <div class="profile-item">
+                    <h3>Username</h3>
+                    <p><%= user.username ? user.username : 'Not available' %></p>
+                </div>
+                <div class="profile-item">
+                    <h3>Email</h3>
+                    <p><%= user.email ? user.email : 'Not available' %></p>
+                </div>
+                <div class="profile-item">
+                    <h3>Total URLs Created</h3>
+                    <p><%= urlsCount ? urlsCount : 'Not available' %></p>
+                </div>
             </div>
+        </div>
     </main>
     <%- include('partials/footer') %>
 </body>

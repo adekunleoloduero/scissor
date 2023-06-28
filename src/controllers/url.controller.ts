@@ -6,7 +6,6 @@ import {
     returnLongUrlService,
     urlsHistoryService,
     getUrlByIdService,
-    viewUrlService,
     deleteUrlService
 } from '../services/url.service';
 
@@ -86,8 +85,15 @@ export const shortenUrlController = async function (req: express.Request, res: e
  export const getUrlByIdController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
     const id = req.params.id;
     try {
-        const url = await getUrlByIdService(id);
-        return res.status(200).json(url);
+        const url= await getUrlByIdService(id);
+        if (req.header("Content-type") == "application/json") {
+            return res.status(200).json(url);
+        } else {
+            return res.status(200).render('viewUrl', {
+                pageTitle: 'View Url',
+                url
+            })
+        }
     } catch(error) {
         console.log(error);
         next(error);
@@ -98,9 +104,9 @@ export const shortenUrlController = async function (req: express.Request, res: e
 export const urlsHistoryController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
     const userId = req.user.id as string;
     const page = req.params.page as string;
-    const limit = req.params.limit as string;
+    // const limit = req.params.limit as string;
     try {
-        const urlsHistory = await urlsHistoryService(userId, page, limit);
+        const urlsHistory = await urlsHistoryService(userId, page);
         if (req.header("Content-type") == "application/json") {
             return res.status(200).json(urlsHistory);
         } else {
@@ -115,25 +121,6 @@ export const urlsHistoryController = async function (req: express.Request, res: 
     }
  }
 
-
- //View the details of a URL
- export const viewUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    const id = req.params.id;
-    try {
-        const url= await viewUrlService(id);
-        if (req.header("Content-type") == "application/json") {
-            return res.status(200).json(url);
-        } else {
-            return res.status(200).render('viewUrl', {
-                pageTitle: 'View Url',
-                url
-            })
-        }
-    } catch(error) {
-        console.log(error);
-        next(error);
-    }
- }
 
  //View the details of a URL
  export const deleteUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
