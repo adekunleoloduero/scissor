@@ -7,7 +7,10 @@ import ejs from 'ejs';
 const app = express();
 
 //Configure cors
-app.use(cors())
+app.use(cors());
+
+
+app.set('trust proxy', true);
 
 
 //Parse request body
@@ -22,7 +25,7 @@ app.set('view engine', 'ejs');
 app.set('views', 'views');
 
 
-//Configure static file
+//Configure static files
 app.use(express.static('public'));
 
 

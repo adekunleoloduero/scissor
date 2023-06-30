@@ -21,14 +21,20 @@ main {
     margin-bottom: 1em;
 }
 
-.url-fields div p {
+.url-fields div input {
     width: 80%;
 }
 
-.description p, .short-url p {
+.description input, .short-url input {
     background-color: rgba(0, 0, 0, 0.068);
     padding: 1.2em;
     border-radius: 5px;
+    border: none;
+    /* color: tomato; */
+}
+
+.short-url input {
+    color: tomato;
 }
 
 .qrcode {

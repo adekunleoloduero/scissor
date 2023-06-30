@@ -25,23 +25,12 @@ import * as jwt from 'jsonwebtoken';
         }
         const user = await User.create(req.body);
         const { password, ...others } = user._doc;
-        const token: string = jwt.sign({id: user._id, email: user.email }, config.JWT_SECRET);
 
         if (req.header("Content-type") == "application/json") {
-            return res.status(201)
-                .cookie('access_token', token, {
-                httpOnly: true,
-                expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
-            }).json({ user, token });
+            return res.status(201).json({ user: others });
         } else {
-            return res.status(201)
-                .cookie('access_token', token, {
-                httpOnly: true,
-                expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
-            }).render('dashboard', {
-                pagetTitle: 'Dashboard',
-                user,
-                urlsCount: 0
+            return res.render('signupConfirmed', {
+                pagetTitle: 'signupConfirmed'
             });
         }
     } catch(error) {
@@ -89,7 +78,7 @@ import * as jwt from 'jsonwebtoken';
                 .cookie('access_token', token, {
                 httpOnly: true,
                 // expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
-            }).json({ user, token });
+            }).json({ user: others, token });
         } else {
             return res.status(201)
                 .cookie('access_token', token, {

@@ -1,9 +1,12 @@
 import express  from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 import { 
     shortenUrlService,
     returnLongUrlService,
+    urlAnalyticsService,
     urlsHistoryService,
     getUrlByIdService,
     deleteUrlService
@@ -65,9 +68,17 @@ export const shortenUrlController = async function (req: express.Request, res: e
 //Return long url in place  of short url
  export const returnLongUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
     const { urlCode } = req.params;
-    const clientIp = requestIp.getClientIp(req) as string;
+    
+    let ip: string = ''; 
+    if (process.env.NODE_ENV == 'production') {
+        ip = req.ip;
+    } else if (process.env.NODE_ENV == 'development') {
+        //Ip for testing
+        ip = '105.123.0.0';
+    }
+    
     try {
-        const url = await returnLongUrlService(urlCode, clientIp);
+        const url = await returnLongUrlService(urlCode, ip);
         const longUrl = url?.longUrl || '/';
 
         if (req.header("Content-type") == "application/json") {
@@ -104,7 +115,7 @@ export const shortenUrlController = async function (req: express.Request, res: e
 export const urlsHistoryController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
     const userId = req.user.id as string;
     const page = req.params.page as string;
-    // const limit = req.params.limit as string;
+    
     try {
         const urlsHistory = await urlsHistoryService(userId, page);
         if (req.header("Content-type") == "application/json") {
@@ -139,17 +150,23 @@ export const urlsHistoryController = async function (req: express.Request, res: 
  }
 
 
-//  export const urlsAnalyticsController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-//     const page = req.query.page as string;
-//     const limit = req.query.limit as string;
-//     try {
-//         const userId = req.user.id;
-//         const urls = await urlsAnalyticsService(userId, page, limit);
-//         return res.status(200).json(urls);
-//     } catch(error) {
-//         console.log(error);
-//         next(error);
-//     }
-//  }
+ export const urlAnalyticsController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
+    const urlCode = req.params.urlCode;
+    const page = req.params.page as string;
+    try {
+        const urlAnalytics = await urlAnalyticsService(urlCode, page);
+        if (req.header("Content-type") == "application/json") {
+            return res.status(200).json(urlAnalytics);
+        } else {
+            return res.render('urlAnalytics', {
+                pageTitle: 'Url Analytics',
+                urlAnalytics
+            });
+        }
+    } catch(error) {
+        console.log(error);
+        next(error);
+    }
+ }
 
 

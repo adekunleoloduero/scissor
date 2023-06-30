@@ -7,12 +7,13 @@
     <title>View Url</title>
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/view_url.css">
+    <script src="/js/main.js" defer></script>
 </head>
 <body>
     <%- include('partials/header') %>
     <main>
         <ul id="view-url-sidebar">
-            <li><a href="#" class="view-analytics-btn">View Analytics</a></li>
+            <li><a href="/urls/analytics/<%= url.urlCode %>/1" class="view-analytics-btn">View Analytics</a></li>
             <li><a href="#" class="view-analytics-btn">Download QR Code</a></li>
         </ul>
         <div class="container">
@@ -21,12 +22,12 @@
                 <div class="url-fields">
                     <div class="description">
                         <h3>Description</h3>
-                        <p><%= url.description ? url.description : 'Not Available' %></p>
+                        <input type="text" value="<%= url.description ? url.description : 'Not Available' %>" disabled/>
                     </div>
                     <div class="short-url">
                         <h3>Short URL</h3>
-                        <p><%= url.shortUrl ? url.shortUrl : 'Not Available' %></p>
-                        <button id="copy-short-url">Copy</button>
+                        <input type="text" id="short-url-text" value="<%= url.shortUrl ? url.shortUrl : 'Not Available' %>" disabled/>
+                        <button id="copy-short-url">Copy Short URL</button>
                     </div>
                 </div>
                 <div class="qrcode">

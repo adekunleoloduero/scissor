@@ -6,9 +6,9 @@ import { Url } from '../models/urls.model';
 
 //Auth pages controllers
 export const showSignUpPage = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    const cookie = req.cookies.access_token;
+    const authenticated = req.user;
     try {
-        if (cookie) {
+        if (authenticated) {
             return res.redirect('/pages/dashboard');
         } else {
             res.status(200).render('signUp', {
@@ -22,10 +22,9 @@ export const showSignUpPage = async function (req: express.Request, res: express
  }
 
 export const showSignInPage = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    const cookie = req.cookies.access_token;
-    console.log()
+    const authenticated = req.user;
     try {
-        if (cookie) {
+        if (authenticated) {
             return res.redirect('/pages/dashboard');
         } else {
             res.status(200).render('signIn', {

@@ -40,8 +40,8 @@
             <% } %>
         </div>
         <div class="pagination">
-            <a href="/urls/history/<%= urlsHistory.currentPage - 1 %>"><< Previous</a>
-            <a href="/urls/history/<%= urlsHistory.currentPage + 1 %>">Next >></a>
+            <a href="/urls/history/<%= urlsHistory.previousPage %>"><< Previous</a>
+            <a href="/urls/history/<%= urlsHistory.nextPage %>">Next >></a>
         </div>
     </main>
     <%- include('partials/footer') %>
