@@ -23,10 +23,10 @@ var __importStar = (this && this.__importStar) || function (mod) {
     return result;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.prouduction = void 0;
+exports.production = void 0;
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-exports.prouduction = {
+exports.production = {
     PORT: process.env.PORT,
     MONGO_URL: process.env.MONGO_URL,
     JWT_SECRET: process.env.JWT_SECRET,

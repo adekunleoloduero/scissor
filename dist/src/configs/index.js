@@ -26,11 +26,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.config = void 0;
 const dev_config_1 = require("./dev.config");
 // import { staging } from './stage.config';
-// import { production } from './prod.config';
+const prod_config_1 = require("./prod.config");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
 const env = process.env.NODE_ENV;
 const configs = {
     development: dev_config_1.development,
+    production: prod_config_1.production
 };
 exports.config = configs[env];
