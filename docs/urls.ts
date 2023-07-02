@@ -1,6 +1,6 @@
 export const shortenUrl = {
     tags: ['Urls Operations'],
-    description: 'Create a very short version of a given URL. The short version should be readily convertible back to the orginal UrL.',
+    description: 'Creates a very short version of a given URL. The short version should be readily convertible back to the orginal UrL.',
     operationId: 'shortenUrl',
     security: [
         {
@@ -208,7 +208,7 @@ export const getUrlsHistory = {
 //Get URLs histor
 export const getUrlAnalytics = {
     tags: ['Urls Operations'],
-    description: 'Returns a paginated list or array of analytics pr usage information about the specified URL. The information returned include the IP address with most requests and geolation information about each IP.',
+    description: 'Returns a paginated list or array of analytics of usage information about the specified URL. The information returned include the IP address with most requests and geolation information about each IP.',
     operationId: 'getUrlAnalytics',
     security: [
         {

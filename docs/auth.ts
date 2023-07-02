@@ -105,6 +105,7 @@ export const signIn = {
                 },
                 password: {
                     type: 'string',
+                    example: 'test123',
                     required: true
                 },
               }
