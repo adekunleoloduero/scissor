@@ -15,9 +15,9 @@ import * as jwt from 'jsonwebtoken';
         const existingUser = await User.findOne({ email });
         if (existingUser) {
             if (req.header("Content-type") == "application/json") {
-                return res.status(403).json('This email is already registered.');
+                return res.status(400).json('This email is already registered.');
             } else {
-                return res.status(403).render('signUp', {
+                return res.status(400).render('signUp', {
                     pageTitle: 'Signup',
                     message: 'This email is already registered.'
                 });
@@ -53,7 +53,7 @@ import * as jwt from 'jsonwebtoken';
                 });
             }
         }
-
+        
         //Ckeck password correctness
         const validPassword = await user.isValidPassword(req.body.password);
         if (!validPassword) {
@@ -74,13 +74,13 @@ import * as jwt from 'jsonwebtoken';
         const token: string = jwt.sign({id: user._id, email: user.email }, config.JWT_SECRET);
 
         if (req.header("Content-type") == "application/json") {
-            return res.status(201)
+            return res.status(200)
                 .cookie('access_token', token, {
                 httpOnly: true,
                 // expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
             }).json({ user: others, token });
         } else {
-            return res.status(201)
+            return res.status(200)
                 .cookie('access_token', token, {
                 httpOnly: true,
                 // expires: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)

@@ -3,11 +3,17 @@ import cookieParser from 'cookie-parser';
 import routes from './routes';
 import cors from 'cors';
 import ejs from 'ejs';
+import swaggerUi from 'swagger-ui-express';
+import { apiDocumentation } from '../docs/index';
+
 
 const app = express();
 
 //Configure cors
 app.use(cors());
+
+//Configure swagger-ui
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiDocumentation));
 
 
 app.set('trust proxy', true);
