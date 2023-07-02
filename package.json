@@ -1,5 +1,5 @@
 {
-  "name": "scissor_api",
+  "name": "scissor",
   "version": "1.0.0",
   "description": "API for an URL shortening application. Built as a capstone project for the final semester at AltSchool Africa.",
   "main": "index.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adekunleoloduero/scissor_api.git"
+    "url": "git+https://github.com/adekunleoloduero/scissor.git"
   },
   "author": "Sheriff Adekunle Tajudeen",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/adekunleoloduero/scissor_api/issues"
+    "url": "https://github.com/adekunleoloduero/scissor/issues"
   },
-  "homepage": "https://github.com/adekunleoloduero/scissor_api#readme",
+  "homepage": "https://github.com/adekunleoloduero/scissor#readme",
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",
     "@types/cookie-parser": "^1.4.3",
