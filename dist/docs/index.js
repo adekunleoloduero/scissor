@@ -22,7 +22,7 @@ const apiDocumentation = {
     },
     servers: [
         {
-            url: 'https://minlink.onrender.com',
+            url: 'https://minlink-26mo.onrender.com',
             description: 'Production Server',
         },
         {
