@@ -2,14 +2,11 @@ import { signUp, signIn } from './auth';
 
 import {
   shortenUrl,
+  returnLongUrl,
   getUrlById,
   getUrlsHistory,
-  getUrlAnalytics,
+  getUrlAnalytics
 } from './urls';
-
-import {
-  returnLongUrl
-} from './others';
 
 import { comps } from './components';
 
@@ -45,11 +42,8 @@ const apiDocumentation = {
         name: 'Authentication',
       },
       {
-        name: 'Urls Operations',
-      },
-      {
-        name: 'Other Operations',
-      },
+        name: 'URLs Operations',
+      }
     ],
     paths: {
       //auth
@@ -63,6 +57,9 @@ const apiDocumentation = {
       '/api/urls/shorten': {
         post: shortenUrl
       },
+      '/{urlCode}': {
+        get: returnLongUrl
+      },
       '/api/urls/{id}': {
         get: getUrlById
       },
@@ -71,10 +68,7 @@ const apiDocumentation = {
       },
       '/api/urls/analytics/{urlCode}/{page}': {
         get: getUrlAnalytics
-      },
-      '/{uCode}': {
-        get: returnLongUrl
-      },
+      }
     },
     components: {
       schemas: {

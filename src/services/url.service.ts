@@ -141,9 +141,9 @@ export const urlsHistoryService = async (userId: string, page: string) => {
 
 
 
-export const deleteUrlService = async (id: string) => {
-    const url = await Url.findByIdAndDelete(id)
-    return url;
- }
+// export const deleteUrlService = async (id: string) => {
+//     const url = await Url.findByIdAndDelete(id)
+//     return url;
+//  }
  
  

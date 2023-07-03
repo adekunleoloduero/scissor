@@ -9,7 +9,6 @@ import {
     urlAnalyticsService,
     urlsHistoryService,
     getUrlByIdService,
-    deleteUrlService
 } from '../services/url.service';
 
 import * as validUrl from 'valid-url';
@@ -74,9 +73,7 @@ export const shortenUrlController = async function (req: express.Request, res: e
 
 //Return long url in place  of short url
  export const returnLongUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    const { uCode} = req.params;
     const { urlCode } = req.params;
-    
     let ip: string = ''; 
     if (process.env.NODE_ENV == 'production') {
         ip = req.ip;
@@ -86,15 +83,15 @@ export const shortenUrlController = async function (req: express.Request, res: e
     }
     
     try {
-        if (uCode) {
-            console.log('uCode')
-            const url = await returnLongUrlService(uCode, ip);
-            const longUrl = url?.longUrl || '/';
-            return res.status(200).json(longUrl) 
-        } else if (urlCode) {
-            const url = await returnLongUrlService(urlCode, ip);
-            const longUrl = url?.longUrl || '/';
-            return res.redirect(longUrl);
+        const url = await returnLongUrlService(urlCode, ip);
+        const longUrl = url?.longUrl || '/';
+        const hostname = req.hostname;
+        const origin = req.get('origin');
+        console.log(hostname, origin)
+        if (hostname == origin) {
+            return res.redirect(longUrl); 
+        } else {
+            return res.status(200).json({ longUrl })
         }
     } catch(error) {
         console.log(error);
@@ -164,17 +161,17 @@ export const urlAnalyticsController = async function (req: express.Request, res:
 
 
 //Delete a url
-export const deleteUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-    const id = req.params.id;
-    try {
-        const url= await deleteUrlService(id);
-        if (req.url.startsWith('/api')) {
-            return res.status(200).json(url);
-        } else {
-            return res.status(200).redirect('/urls/history/1/5');
-        }
-    } catch(error) {
-        console.log(error);
-        next(error);
-    }
- }
+// export const deleteUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
+//     const id = req.params.id;
+//     try {
+//         const url= await deleteUrlService(id);
+//         if (req.url.startsWith('/api')) {
+//             return res.status(200).json(url);
+//         } else {
+//             return res.status(200).redirect('/urls/history/1/5');
+//         }
+//     } catch(error) {
+//         console.log(error);
+//         next(error);
+//     }
+//  }

@@ -6,7 +6,6 @@ import {
     urlAnalyticsController,
     getUrlByIdController,
     urlsHistoryController,
-    deleteUrlController
 } from '../controllers/url.controller';
 
 import { authenticateUser } from '../middlewares/auth.middleware';
@@ -32,13 +31,11 @@ export default (router: express.Router ): void => {
     router.post('/urls/shorten', authenticateUser, shortenUrlController);
     
     //Delete URL
-    router.delete('/urls/delete/:id', authenticateUser, deleteUrlController);
+    // router.delete('/urls/delete/:id', authenticateUser, deleteUrlController);
 
 
     //2. Strictly requests with content types of application/json
     //Shorten URL
-    router.get('/:uCode', returnLongUrlController);
-
     router.post('/api/urls/shorten', authenticateUser, shortenUrlController);
 
     //Get URL by
@@ -50,6 +47,4 @@ export default (router: express.Router ): void => {
     //Url Analytics
     router.get('/api/urls/analytics/:urlCode/:page', authenticateUser, urlAnalyticsController);
     
-    //Delete URL
-    router.delete('/api/urls/delete/:id', authenticateUser, deleteUrlController);
 }
