@@ -1,15 +1,15 @@
-.url-analytics-table {
+table {
     width: 100%;
     margin: 0 auto;
     color: white;
 }
 
-.url-analytics-table td {
+table td {
     text-align: center;
     padding: 0.4em;
 }
 
-.url-analytics-table th {
+table th {
     background-color: tomato;
     padding: 0.8em;
 }

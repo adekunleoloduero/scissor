@@ -8,33 +8,37 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/url_history.css">
+    <link rel="stylesheet" href="/css/mobile.css">
     <script src="/js/main.js" defer></script>
 </head>
 <body>
     <%- include('partials/header') %>
     <main>
         <h2 class="page-heading">URLs History</h2>
+        <p class="instruction">Click on a URL box to view its details</p>
         <div class="container">
             <% if (urlsHistory.urls && urlsHistory.urls.length > 0) { %>
                 <% for (let i = 0; i < urlsHistory.urls.length; i++) { %>
                     <div class="url-summary">
-                        <div class="url-info">
-                            <div>
-                                <h4>Description</h4>
-                                <p><%= urlsHistory.urls[i].description ? urlsHistory.urls[i].description : 'Not Available' %></p>
+                        <a href="/urls/<%= urlsHistory.urls[i]._id %>">
+                            <div class="url-info">
+                                <div>
+                                    <h4>Description</h4>
+                                    <p><%= urlsHistory.urls[i].description ? urlsHistory.urls[i].description : 'Not Available' %></p>
+                                </div>
+                                <div>
+                                    <h4>Short URL</h4>
+                                    <p><%= urlsHistory.urls[i].shortUrl ? urlsHistory.urls[i].shortUrl : 'Not Available' %></p>
+                                </div>
+                                <div id="url-date">
+                                    <p><%= urlsHistory.urls[i].createdAt ? urlsHistory.urls[i].createdAt.toLocaleDateString('en-GB', {
+                                        year: 'numeric',
+                                        month: '2-digit',
+                                        day: '2-digit',
+                                      }) : 'Not Available' %></p>
+                                </div>
                             </div>
-                            <div>
-                                <h4>Short URL</h4>
-                                <p><%= urlsHistory.urls[i].shortUrl ? urlsHistory.urls[i].shortUrl : 'Not Available' %></p>
-                            </div>
-                            <div id="url-date">
-                                <p><%= urlsHistory.urls[i].createdAt ? urlsHistory.urls[i].createdAt : 'Not Available' %></p>
-                            </div>
-                        </div>
-                        <div class="url-actions">
-                            <a href="/urls/<%= urlsHistory.urls[i]._id %>" class="view-url">View</a>
-                            <a href="/urls/view/<%= urlsHistory.urls[i]._id %>" class="delete-url">Delete</a>
-                        </div>
+                        </a>
                     </div>
                 <% } %>
             <% } else { %>

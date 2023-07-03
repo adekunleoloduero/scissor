@@ -1,0 +1,63 @@
+@media (max-width: 700px) {
+    .container {
+        display: block;
+        width: 80%;
+        margin: 0 auto;
+        /* border: 1px solid blue; */
+    }
+
+    body {
+        overflow-x: hidden;
+    }
+
+    form {
+        width: 100%;
+        margin: 0 auto;
+        padding: 20px;
+        text-align: center;
+        /* border: 1px solid red; */
+    }
+
+    form label {
+        font-size: 0.8em;
+    }
+
+    .form-control {
+        /* border: 1px solid blue;    */
+    }
+
+    .form-control input, .form-control textarea {
+        padding: 0.3em;
+    }
+
+    .url-info {
+        font-size: 0.8em;
+    }
+
+    .instruction {
+        font-size: 0.8em;
+    }
+
+
+    /* Table */
+    table {
+        width: 80%;
+        margin: 0 auto;
+        padding: 10px;
+        font-size: 0.6em;
+        /* border: 1px solid red; */
+    }
+
+    
+    table th {
+        padding: 0.6em;
+    }
+
+    /* Page navigation buttons*/
+    .pagination a {
+        padding: 0.6em;
+        font-size: 0.7em;
+    }
+
+
+}

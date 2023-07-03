@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/url_analytics.css">
+    <link rel="stylesheet" href="/css/mobile.css">
     <script src="/js/main.js" defer></script>
     <script src="/js/main.js" defer></script>
 </head>
 <body>
     <%- include('partials/header') %>
     <main>
-        <h2 class="page-heading">Showing Analytics for <span style="color: rgba(0, 0, 0, 0.685)">(<%= urlAnalytics.shortUrl %>)</span></h2>
+        <h2 class="page-heading" style="font-size: 0.5em;">Showing Analytics for <span style="color: rgba(0, 0, 0, 0.685)"><%= urlAnalytics.shortUrl %></span></h2>
         <div class="container">
             <% if (urlAnalytics.analytics && urlAnalytics.analytics.length > 0) { %>
                 <table class="url-analytics-table">
