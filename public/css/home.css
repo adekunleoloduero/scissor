@@ -3,11 +3,18 @@
     padding: 20px;
     border: none;
     background-color: tomato;
-    margin-top: 1.3em;
     color: white;
     text-decoration: none;
     width: 120px;
     text-align: center;
+    margin: 0 auto;
+    margin-top: 1.3em;
+
+}
+
+.container .desc {
+    text-align: center;
+    color: rgba(0, 0, 0, 0.61);
 }
 
 
@@ -21,3 +28,12 @@
     font-size: 1.4em;
 }
 
+
+
+/* Mobile view*/
+@media (max-width: 700px) {
+
+    #home-signup-button {
+        padding: 10px;
+    }
+}

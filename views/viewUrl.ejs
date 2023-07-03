@@ -12,27 +12,27 @@
 <body>
     <%- include('partials/header') %>
     <main>
-        <ul id="view-url-sidebar">
-            <li><a href="/urls/analytics/<%= url.urlCode %>/1" class="view-analytics-btn">View Analytics</a></li>
-            <li><a href="#" class="view-analytics-btn">Download QR Code</a></li>
-        </ul>
+        <h2 class="page-heading">View URL Details</h2>
         <div class="container">
-            <h2 style="text-align: center; margin-bottom: 1.4em; color: rgba(0, 0, 0, 0.836);">View URL</h2>
+            <ul id="view-url-sidebar">
+                <li><a href="/urls/analytics/<%= url.urlCode %>/1" class="view-analytics-btn">View Analytics</a></li>
+                <li><a href="#" class="view-analytics-btn">Download QR Code</a></li>
+            </ul>
             <div class="url-items">
-                <div class="url-fields">
-                    <div class="description">
-                        <h3>Description</h3>
-                        <input type="text" value="<%= url.description ? url.description : 'Not Available' %>" disabled/>
-                    </div>
-                    <div class="short-url">
-                        <h3>Short URL</h3>
-                        <input type="text" id="short-url-text" value="<%= url.shortUrl ? url.shortUrl : 'Not Available' %>" disabled/>
-                        <button id="copy-short-url">Copy Short URL</button>
-                    </div>
-                </div>
                 <div class="qrcode">
-                    <h3 style="margin-bottom: 0.8em; margin-left: 10px;">Scan QR Code</h3>
+                    <h3>Scan QR Code</h3>
                     <img src="<%= url.qrCode ? url.qrCode : '' %>" alt="QR Code">
+                </div>
+                <div class="description">
+                    <h3>Description</h3>
+                    <input type="text" value="<%= url.description ? url.description : 'Not Available' %>" disabled/>
+                </div>
+                <div class="short-url">
+                    <h3>Short URL</h3>
+                    <input type="text" id="short-url-text" value="<%= url.shortUrl ? url.shortUrl : 'Not Available' %>" disabled/>
+                </div>
+                <div id="copy-short-url">
+                    <button id="copy">Copy Short URL</button>
                 </div>
             </div>
         </div>

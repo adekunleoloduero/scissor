@@ -5,16 +5,18 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="/css/home.css">
+    <script src="/js/main.js" defer></script>
 </head>
 <body>
     <%- include('partials/header') %>
     <main>
         <div class="container">
-            <p>MinLink (short for minimal link) provides an effective URLs shortening service.</p>
-            <p>Ability to download the QR Code for your shortened URLs.</p>
-            <p>Also, you can provide an optional Custom Domain to be used in your URLs.</p>
+            <p class="desc">MinLink (short for minimal link) provides an effective URLs shortening service.</p>
+            <p class="desc">Ability to scan or download the QR Code for your shortened URLs.</p>
+            <p class="desc">Also, you can provide an optional Custom Domain to be used in your URLs.</p>
             <a href="/pages/signup" id="home-signup-button">Get Started</a>
         </div>
     </main>

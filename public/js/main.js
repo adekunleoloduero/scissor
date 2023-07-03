@@ -1,15 +1,28 @@
 const analyticsTableRows = document.querySelectorAll('.analytics-row');
-const copyBtn = document.getElementById('copy-short-url');
-const shortUrlText = document.getElementById('short-url-text');
+const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".nav-menu");
 
 
 
-const copyShortUrl = (e) => {
-    const text = shortUrlText.value;
-    console.log(text);
-    navigator.clipboard.writeText(text);
-    copyBtn.innerText = 'Copied to Clipboard';
+hamburger.addEventListener("click", mobileMenu);
+
+function mobileMenu() {
+    hamburger.classList.toggle("active");
+    navMenu.classList.toggle("active");
 }
+// const copyBtn = document.getElementById('copy-short-url');
+// const shortUrlText = document.getElementById('short-url-text');
+
+
+
+// const copyShortUrl = (e) => {
+//     const text = shortUrlText.value;
+//     console.log(text);
+//     navigator.clipboard.writeText(text);
+//     copyBtn.innerText = 'Copied to Clipboard';
+// }
+
+
 
 
 function colorTableRows() {
@@ -23,4 +36,4 @@ function colorTableRows() {
 }
 
 colorTableRows();
-shortUrlText.addEventListener("click", copyShortUrl);
+// shortUrlText.addEventListener("click", copyShortUrl);

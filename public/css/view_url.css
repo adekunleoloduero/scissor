@@ -1,28 +1,26 @@
-main {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.container {
+    display: grid;
+    width: 80%;
+    grid-template-columns: 200px 1fr;
+    padding: 2.1em;
+    margin: 0;
+    margin-top: 1em;
 }
 
 
 .url-items {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+    width: 900px;
 }
 
-
-.url-fields {
-    width: 100%;
-}
-
-.url-fields div {
-    width: 100%;
+.url-items div {
+    width: 60%;
+    margin: 0 auto;
     margin-bottom: 1em;
 }
 
-.url-fields div input {
-    width: 80%;
+.url-items div input {
+    width: 100%;
+    margin: 0 auto;
 }
 
 .description input, .short-url input {
@@ -30,34 +28,22 @@ main {
     padding: 1.2em;
     border-radius: 5px;
     border: none;
-    /* color: tomato; */
-}
-
-.short-url input {
-    color: tomato;
 }
 
 .qrcode {
-    margin-bottom: 2.5em;
+    margin-top: 1.6em;
+    margin-bottom: 3.5em;
+    text-align: center;
 }
 
-.qrcode a {
-    display: block;
-    width: 130px;
-    margin-top: 0.5em;
-    list-style-type: none;
-    padding: 0.8em;
-    background-color: tomato;
-    font-size: 0.9em;
-    border-radius: 5px;
-    border: none;
-    text-decoration: none;
-    color: white;   
+.qrcode h3 {
+    font-size: 0.8em;
+    margin-bottom: 2.3em;
 }
 
 
 #view-url-sidebar {
-    margin-left: 1.9em;
+    text-align: center;
 }
 
 #view-url-sidebar li {
@@ -67,11 +53,10 @@ main {
     margin-bottom: 0.8em;
     font-size: 0.9em;
     border-radius: 5px;
-    border: none;
 }
 
 #view-url-sidebar li:hover {
-    background-color: rgba(255, 99, 71, 0.911);;
+    background-color: rgba(255, 99, 71, 0.664);
 }
 
 #view-url-sidebar li a {
@@ -81,13 +66,71 @@ main {
     margin: 0 auto;
 }
 
-#copy-short-url {
+#copy {
     display: block;
     margin-top: 1em;
     padding: 10px;
-    background-color: rgba(0, 0, 0, 0.836);
+    background-color: rgba(0, 0, 0, 0.888);
     cursor: pointer;
     border: 0;
     border-radius: 5px;
     color: white;
+}
+
+#copy:hover {
+    background-color: rgba(0, 0, 0, 0.588);
+}
+
+#empty-space {
+    margin-top: 90px;
+}
+
+
+
+/* Mobile view*/
+@media (max-width: 700px) {
+
+    .container {
+        display: block;
+        width: 80%;
+        margin: 0 auto;
+    }
+
+    #view-url-sidebar, .url-items {
+        width: 80%;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .url-items div {
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 1.5em;
+    }
+
+    .url-items div input {
+        width: 85%;
+    }
+
+    .qrcode {
+        font-size: 0.9em;
+    }
+
+    .url-items div h3 {
+        font-size: 0.8em;
+        text-align: center;
+    }
+
+    .url-items .description {
+        margin-top: 1.9em;
+    }
+
+    #copy {
+        display: block;
+        width: 100%;
+    }
+
+    input {
+        font-size: 0.8em;
+    }
 }
