@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getUrlAnalytics = exports.getUrlsHistory = exports.getUrlById = exports.shortenUrl = void 0;
+exports.getUrlAnalytics = exports.getUrlsHistory = exports.getUrlById = exports.returnLongUrl = exports.shortenUrl = void 0;
 exports.shortenUrl = {
-    tags: ['Urls Operations'],
-    description: 'Create a very short version of a given URL. The short version should be readily convertible back to the orginal UrL.',
+    tags: ['URLs Operations'],
+    description: 'Creates a very short version of a given URL. The short version should be readily convertible back to the orginal UrL.',
     operationId: 'shortenUrl',
     security: [
         {
@@ -78,9 +78,71 @@ exports.shortenUrl = {
         }
     }
 };
+//Return Long Url
+exports.returnLongUrl = {
+    tags: ['URLs Operations'],
+    description: 'Given a short url it returns the corresponding long url. The result can be used to redirect the user to the original url on the client side',
+    operationId: 'returnLongUrl',
+    parameters: [
+        {
+            name: 'urlCode',
+            type: 'string',
+            in: 'path',
+            description: 'Url Code',
+            required: true
+        }
+    ],
+    responses: {
+        '200': {
+            description: 'Success',
+            content: {
+                'application/json': {
+                    schema: {
+                        properties: {
+                            longUrl: {
+                                type: 'string',
+                                example: 'https://www.amazon.com/?&tag=googleglobalp-20&ref=pd_sl_7nnedyywlk_e&adgrpid=82342659060&hvpone=&hvptwo=&hvadid=585475370855&hvpos=&hvnetw=g&hvrand=6033694070608085331&hvqmt=e&hvdev=c&hvdvcmdl=&hvlocint=&hvlocphy=1010294&hvtargid=kwd-10573980&hydadcr=2246_13468515'
+                            }
+                        }
+                    },
+                },
+            },
+        },
+        '400': {
+            description: 'Invalied input or bad request',
+            content: {
+                'application/json': {
+                    schema: {
+                        $ref: '#/components/schemas/badRequest'
+                    },
+                },
+            },
+        },
+        '404': {
+            description: 'Not Found',
+            content: {
+                'application/json': {
+                    schema: {
+                        $ref: '#/components/schemas/notFound',
+                    },
+                },
+            },
+        },
+        '500': {
+            description: 'Server Error.',
+            content: {
+                'application/json': {
+                    schema: {
+                        $ref: '#/components/schemas/serverError',
+                    },
+                },
+            },
+        }
+    }
+};
 //Get URL by Id
 exports.getUrlById = {
-    tags: ['Urls Operations'],
+    tags: ['URLs Operations'],
     description: 'Returns the URL record whose id is specified.',
     operationId: 'getUrlById',
     security: [
@@ -142,7 +204,7 @@ exports.getUrlById = {
 };
 //Get URLs histor
 exports.getUrlsHistory = {
-    tags: ['Urls Operations'],
+    tags: ['URLs Operations'],
     description: 'Returns a paginated list or array of all URls that have been created by a user.',
     operationId: 'getUrlsHistory',
     security: [
@@ -204,8 +266,8 @@ exports.getUrlsHistory = {
 };
 //Get URLs histor
 exports.getUrlAnalytics = {
-    tags: ['Urls Operations'],
-    description: 'Returns a paginated list or array of analytics pr usage information about the specified URL. The information returned include the IP address with most requests and geolation information about each IP.',
+    tags: ['URLs Operations'],
+    description: 'Returns a paginated list or array of analytics of usage information about the specified URL. The information returned include the IP address with most requests and geolation information about each IP.',
     operationId: 'getUrlAnalytics',
     security: [
         {

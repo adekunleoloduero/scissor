@@ -3,7 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.apiDocumentation = void 0;
 const auth_1 = require("./auth");
 const urls_1 = require("./urls");
-const others_1 = require("./others");
 const components_1 = require("./components");
 const apiDocumentation = {
     openapi: '3.1.0',
@@ -35,11 +34,8 @@ const apiDocumentation = {
             name: 'Authentication',
         },
         {
-            name: 'Urls Operations',
-        },
-        {
-            name: 'Other Operations',
-        },
+            name: 'URLs Operations',
+        }
     ],
     paths: {
         //auth
@@ -53,6 +49,9 @@ const apiDocumentation = {
         '/api/urls/shorten': {
             post: urls_1.shortenUrl
         },
+        '/{urlCode}': {
+            get: urls_1.returnLongUrl
+        },
         '/api/urls/{id}': {
             get: urls_1.getUrlById
         },
@@ -61,10 +60,7 @@ const apiDocumentation = {
         },
         '/api/urls/analytics/{urlCode}/{page}': {
             get: urls_1.getUrlAnalytics
-        },
-        '/{uCode}': {
-            get: others_1.returnLongUrl
-        },
+        }
     },
     components: {
         schemas: {

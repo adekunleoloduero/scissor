@@ -15,10 +15,9 @@ exports.default = (router) => {
     //Shorten URL
     router.post('/urls/shorten', auth_middleware_1.authenticateUser, url_controller_1.shortenUrlController);
     //Delete URL
-    router.delete('/urls/delete/:id', auth_middleware_1.authenticateUser, url_controller_1.deleteUrlController);
+    // router.delete('/urls/delete/:id', authenticateUser, deleteUrlController);
     //2. Strictly requests with content types of application/json
     //Shorten URL
-    router.get('/:uCode', url_controller_1.returnLongUrlController);
     router.post('/api/urls/shorten', auth_middleware_1.authenticateUser, url_controller_1.shortenUrlController);
     //Get URL by
     router.get('/api/urls/:id', auth_middleware_1.authenticateUser, url_controller_1.getUrlByIdController);
@@ -26,6 +25,4 @@ exports.default = (router) => {
     router.get('/api/urls/history/:page', auth_middleware_1.authenticateUser, url_controller_1.urlsHistoryController);
     //Url Analytics
     router.get('/api/urls/analytics/:urlCode/:page', auth_middleware_1.authenticateUser, url_controller_1.urlAnalyticsController);
-    //Delete URL
-    router.delete('/api/urls/delete/:id', auth_middleware_1.authenticateUser, url_controller_1.deleteUrlController);
 };

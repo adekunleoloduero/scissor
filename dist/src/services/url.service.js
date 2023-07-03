@@ -35,7 +35,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUrlService = exports.urlAnalyticsService = exports.urlsHistoryService = exports.getUrlByIdService = exports.returnLongUrlService = exports.shortenUrlService = void 0;
+exports.urlAnalyticsService = exports.urlsHistoryService = exports.getUrlByIdService = exports.returnLongUrlService = exports.shortenUrlService = void 0;
 const urls_model_1 = require("../models/urls.model");
 const urlAnalytics_model_1 = require("../models/urlAnalytics.model");
 const shortid_1 = __importDefault(require("shortid"));
@@ -162,8 +162,7 @@ const urlAnalyticsService = (urlCode, page) => __awaiter(void 0, void 0, void 0,
     };
 });
 exports.urlAnalyticsService = urlAnalyticsService;
-const deleteUrlService = (id) => __awaiter(void 0, void 0, void 0, function* () {
-    const url = yield urls_model_1.Url.findByIdAndDelete(id);
-    return url;
-});
-exports.deleteUrlService = deleteUrlService;
+// export const deleteUrlService = async (id: string) => {
+//     const url = await Url.findByIdAndDelete(id)
+//     return url;
+//  }

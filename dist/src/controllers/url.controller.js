@@ -35,7 +35,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUrlController = exports.urlAnalyticsController = exports.urlsHistoryController = exports.getUrlByIdController = exports.returnLongUrlController = exports.shortenUrlController = void 0;
+exports.urlAnalyticsController = exports.urlsHistoryController = exports.getUrlByIdController = exports.returnLongUrlController = exports.shortenUrlController = void 0;
 const dotenv_1 = __importDefault(require("dotenv"));
 dotenv_1.default.config();
 const url_service_1 = require("../services/url.service");
@@ -100,7 +100,6 @@ exports.shortenUrlController = shortenUrlController;
 //Return long url in place  of short url
 const returnLongUrlController = function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        const { uCode } = req.params;
         const { urlCode } = req.params;
         let ip = '';
         if (process.env.NODE_ENV == 'production') {
@@ -111,16 +110,16 @@ const returnLongUrlController = function (req, res, next) {
             ip = '105.123.0.0';
         }
         try {
-            if (uCode) {
-                console.log('uCode');
-                const url = yield (0, url_service_1.returnLongUrlService)(uCode, ip);
-                const longUrl = (url === null || url === void 0 ? void 0 : url.longUrl) || '/';
-                return res.status(200).json(longUrl);
-            }
-            else if (urlCode) {
-                const url = yield (0, url_service_1.returnLongUrlService)(urlCode, ip);
-                const longUrl = (url === null || url === void 0 ? void 0 : url.longUrl) || '/';
+            const url = yield (0, url_service_1.returnLongUrlService)(urlCode, ip);
+            const longUrl = (url === null || url === void 0 ? void 0 : url.longUrl) || '/';
+            const hostname = req.hostname;
+            const origin = req.get('origin');
+            console.log(hostname, origin);
+            if (hostname == origin) {
                 return res.redirect(longUrl);
+            }
+            else {
+                return res.status(200).json({ longUrl });
             }
         }
         catch (error) {
@@ -200,22 +199,17 @@ const urlAnalyticsController = function (req, res, next) {
 };
 exports.urlAnalyticsController = urlAnalyticsController;
 //Delete a url
-const deleteUrlController = function (req, res, next) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const id = req.params.id;
-        try {
-            const url = yield (0, url_service_1.deleteUrlService)(id);
-            if (req.url.startsWith('/api')) {
-                return res.status(200).json(url);
-            }
-            else {
-                return res.status(200).redirect('/urls/history/1/5');
-            }
-        }
-        catch (error) {
-            console.log(error);
-            next(error);
-        }
-    });
-};
-exports.deleteUrlController = deleteUrlController;
+// export const deleteUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
+//     const id = req.params.id;
+//     try {
+//         const url= await deleteUrlService(id);
+//         if (req.url.startsWith('/api')) {
+//             return res.status(200).json(url);
+//         } else {
+//             return res.status(200).redirect('/urls/history/1/5');
+//         }
+//     } catch(error) {
+//         console.log(error);
+//         next(error);
+//     }
+//  }
