@@ -112,14 +112,12 @@ const returnLongUrlController = function (req, res, next) {
         try {
             const url = yield (0, url_service_1.returnLongUrlService)(urlCode, ip);
             const longUrl = (url === null || url === void 0 ? void 0 : url.longUrl) || '/';
-            const hostname = req.hostname;
-            const origin = req.get('origin');
-            console.log(hostname, origin);
-            if (hostname == origin) {
-                return res.redirect(longUrl);
+            const origin = req.headers.referer;
+            if (origin === null || origin === void 0 ? void 0 : origin.endsWith('/api-docs/')) {
+                return res.status(200).json({ longUrl });
             }
             else {
-                return res.status(200).json({ longUrl });
+                return res.redirect(longUrl);
             }
         }
         catch (error) {
