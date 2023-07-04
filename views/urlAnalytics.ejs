@@ -15,7 +15,7 @@
 <body>
     <%- include('partials/header') %>
     <main>
-        <h2 class="page-heading" style="font-size: 0.5em;">Showing Analytics for <span style="color: rgba(0, 0, 0, 0.685)"><%= urlAnalytics.shortUrl %></span></h2>
+        <h2 class="page-heading mobile-heading">Showing Analytics for <span style="color: rgba(0, 0, 0, 0.685)"><%= urlAnalytics.shortUrl %></span></h2>
         <div class="container">
             <% if (urlAnalytics.analytics && urlAnalytics.analytics.length > 0) { %>
                 <table class="url-analytics-table">

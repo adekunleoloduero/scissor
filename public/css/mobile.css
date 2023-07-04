@@ -48,7 +48,15 @@
         /* border: 1px solid red; */
     }
 
+    .url-summary {
+        width: 100%;
+    }
     
+    .mobile-heading {
+        font-size: 0.5em;
+        margin-bottom: 0;
+    }
+
     table th {
         padding: 0.6em;
     }
@@ -58,6 +66,7 @@
         padding: 0.6em;
         font-size: 0.7em;
     }
+
 
 
 }

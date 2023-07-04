@@ -20,6 +20,7 @@ a {
 .page-heading {
     text-align: center;
     color: tomato;
+    margin-bottom: 0.7em;
 }
 
 main {
