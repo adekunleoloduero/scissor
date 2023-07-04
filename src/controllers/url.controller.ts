@@ -85,13 +85,12 @@ export const shortenUrlController = async function (req: express.Request, res: e
     try {
         const url = await returnLongUrlService(urlCode, ip);
         const longUrl = url?.longUrl || '/';
-        const hostname = req.hostname;
-        const origin = req.get('origin');
-        console.log(hostname, origin)
-        if (hostname == origin) {
-            return res.redirect(longUrl); 
+        const origin = req.headers.referer;
+        
+        if (origin?.endsWith('/api-docs/')) {
+            return res.status(200).json({ longUrl });
         } else {
-            return res.status(200).json({ longUrl })
+            return res.redirect(longUrl); 
         }
     } catch(error) {
         console.log(error);
