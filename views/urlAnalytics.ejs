@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/url_analytics.css">
     <link rel="stylesheet" href="/css/mobile.css">
     <script src="/js/main.js" defer></script>
-    <script src="/js/url_analyticsjs" defer></script>
+    <script src="/js/url_analytics.js" defer></script>
 </head>
 <body>
     <%- include('partials/header') %>
@@ -39,13 +39,13 @@
                     </tbody>
                     
                 </table>
+                <div class="pagination">
+                    <a href="/urls/analytics/<%= urlAnalytics.analytics[0].urlCode %>/<%= urlAnalytics.previousPage %>"><< Previous</a> 
+                    <a href="/urls/analytics/<%= urlAnalytics.analytics[0].urlCode %>/<%= urlAnalytics.nextPage %>">Next >></a>
+                </div>
             <% } else { %>
-                <p>Your URL has 0 traffick currently.</p>
+                <p>This link has 0 traffick currently.</p>
             <% } %>
-        </div>
-        <div class="pagination">
-            <a href="/urls/analytics/<%= urlAnalytics.analytics[0].urlCode %>/<%= urlAnalytics.previousPage %>"><< Previous</a> 
-            <a href="/urls/analytics/<%= urlAnalytics.analytics[0].urlCode %>/<%= urlAnalytics.nextPage %>">Next >></a>
         </div>
     </main>
     <%- include('partials/footer') %>
