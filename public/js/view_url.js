@@ -9,11 +9,11 @@ function copyShortUrl(e) {
     shortUrl.setSelectionRange(0, 99999); // For mobile devices
    // Copy the text inside the text field
     navigator.clipboard.writeText(shortUrl.value);
-    
+
     //Indicate that the text has been copied successully
-    copyBtn.textContent = 'Copied';
+    copyBtn.textContent = 'Link Copied';
 
     setTimeout(() => {
-        copyBtn.textContent = 'Copy Short Url'
+        copyBtn.textContent = 'Copy Link'
     }, 1200);
 }

@@ -34,7 +34,7 @@ export default (router: express.Router ): void => {
     // router.delete('/urls/delete/:id', authenticateUser, deleteUrlController);
 
 
-    //2. Strictly requests with content types of application/json
+    //2. For API Calls
     //Shorten URL
     router.post('/api/urls/shorten', authenticateUser, shortenUrlController);
 

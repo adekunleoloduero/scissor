@@ -88,8 +88,14 @@ export const urlsHistoryService = async (userId: string, page: string) => {
     
     if (totalPages === pageValue) {
         nextPage = pageValue;
-        previousPage = nextPage - 1;
+        // if (nextPage === 2) {
+        //     previousPage = 1;
+        // } else  {
+        //     previousPage = nextPage - 1;
+        // }
     }
+
+    console.log('Previous: ', previousPage, 'Next: ', nextPage)
 
     const urls = await Url.find({ userId })
     .sort({ createdAt: -1 })
@@ -109,17 +115,16 @@ export const urlsHistoryService = async (userId: string, page: string) => {
     let previousPage = pageValue;
     let nextPage = pageValue + 1;
     const count = await UrlAnalytics.count({ urlCode });
-    const totalPages = Math.ceil(count / 5);
+    const totalPages = Math.ceil(count / 10);
     
     if (totalPages === pageValue) {
         nextPage = pageValue;
-        previousPage = nextPage - 1;
     }
 
     const analytics = await UrlAnalytics.find({ urlCode })
-    .sort({ clicCount: -1 })
+    .sort({ clickCount: -1 })
     .limit(5)
-    .skip((pageValue - 1) * 5)
+    .skip((pageValue - 1) * 10)
     .exec();
 
     //Get short UrL
