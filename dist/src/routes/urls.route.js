@@ -16,7 +16,7 @@ exports.default = (router) => {
     router.post('/urls/shorten', auth_middleware_1.authenticateUser, url_controller_1.shortenUrlController);
     //Delete URL
     // router.delete('/urls/delete/:id', authenticateUser, deleteUrlController);
-    //2. Strictly requests with content types of application/json
+    //2. For API Calls
     //Shorten URL
     router.post('/api/urls/shorten', auth_middleware_1.authenticateUser, url_controller_1.shortenUrlController);
     //Get URL by

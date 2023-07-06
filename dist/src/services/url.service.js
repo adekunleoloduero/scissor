@@ -116,8 +116,13 @@ const urlsHistoryService = (userId, page) => __awaiter(void 0, void 0, void 0, f
     const totalPages = Math.ceil(count / 5);
     if (totalPages === pageValue) {
         nextPage = pageValue;
-        previousPage = nextPage - 1;
+        // if (nextPage === 2) {
+        //     previousPage = 1;
+        // } else  {
+        //     previousPage = nextPage - 1;
+        // }
     }
+    console.log('Previous: ', previousPage, 'Next: ', nextPage);
     const urls = yield urls_model_1.Url.find({ userId })
         .sort({ createdAt: -1 })
         .limit(5)
@@ -135,15 +140,14 @@ const urlAnalyticsService = (urlCode, page) => __awaiter(void 0, void 0, void 0,
     let previousPage = pageValue;
     let nextPage = pageValue + 1;
     const count = yield urlAnalytics_model_1.UrlAnalytics.count({ urlCode });
-    const totalPages = Math.ceil(count / 5);
+    const totalPages = Math.ceil(count / 10);
     if (totalPages === pageValue) {
         nextPage = pageValue;
-        previousPage = nextPage - 1;
     }
     const analytics = yield urlAnalytics_model_1.UrlAnalytics.find({ urlCode })
-        .sort({ clicCount: -1 })
+        .sort({ clickCount: -1 })
         .limit(5)
-        .skip((pageValue - 1) * 5)
+        .skip((pageValue - 1) * 10)
         .exec();
     //Get short UrL
     const url = yield urls_model_1.Url.findOne({ urlCode });
