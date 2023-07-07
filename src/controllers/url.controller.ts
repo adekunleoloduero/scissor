@@ -121,9 +121,9 @@ export const shortenUrlController = async function (req: express.Request, res: e
 export const urlsHistoryController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
     const userId = req.user.id as string;
     const page = req.params.page as string;
-    
+    const pageStatus = req.params.pageStatus as string;
     try {
-        const urlsHistory = await urlsHistoryService(userId, page);
+        const urlsHistory = await urlsHistoryService(userId, page, pageStatus);
         if (req.url.startsWith('/api')) {
             return res.status(200).json(urlsHistory);
         } else {
@@ -142,8 +142,11 @@ export const urlsHistoryController = async function (req: express.Request, res: 
 export const urlAnalyticsController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
     const urlCode = req.params.urlCode;
     const page = req.params.page as string;
+    const pageStatus = req.params.pageStatus as string;
+    console.log(page);
+    console.log(pageStatus);
     try {
-        const urlAnalytics = await urlAnalyticsService(urlCode, page);
+        const urlAnalytics = await urlAnalyticsService(urlCode, page, pageStatus);
         if (req.url.startsWith('/api')) {
             return res.status(200).json(urlAnalytics);
         } else {

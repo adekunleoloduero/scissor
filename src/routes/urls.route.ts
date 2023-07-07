@@ -22,10 +22,10 @@ export default (router: express.Router ): void => {
     router.get('/urls/:id', authenticateUser, getUrlByIdController);
 
     //Url Analytics
-    router.get('/urls/analytics/:urlCode/:page', authenticateUser, urlAnalyticsController);
+    router.get('/urls/analytics/:urlCode/:page/:pageStatus', authenticateUser, urlAnalyticsController);
 
     //URLs history
-    router.get('/urls/history/:page', authenticateUser, urlsHistoryController);
+    router.get('/urls/history/:page/:pageStatus', authenticateUser, urlsHistoryController);
 
     //Shorten URL
     router.post('/urls/shorten', authenticateUser, shortenUrlController);

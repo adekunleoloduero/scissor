@@ -79,23 +79,33 @@ export const returnLongUrlService = async (urlCode: string, ip: string) => {
  }
 
 
-export const urlsHistoryService = async (userId: string, page: string) => {
+export const urlsHistoryService = async (userId: string, page: string, pageStatus: string) => {
+    let previousPage = 0;
+    let nextPage = 0;
     const pageValue = parseInt(page);
-    let previousPage = pageValue;
-    let nextPage = pageValue + 1;
-    const count = await Url.count({ userId });
-    const totalPages = Math.ceil(count / 5);
-    
-    if (totalPages === pageValue) {
-        nextPage = pageValue;
-        // if (nextPage === 2) {
-        //     previousPage = 1;
-        // } else  {
-        //     previousPage = nextPage - 1;
-        // }
+    if (pageStatus == 'next') {
+        previousPage = pageValue;
+        nextPage = pageValue + 1;
+    } else if (pageStatus == 'prev') {
+        if (pageValue === 1) {
+            previousPage = pageValue;    
+        } else {
+            previousPage = pageValue - 1;
+        }
+        nextPage = pageValue + 1;
     }
 
-    console.log('Previous: ', previousPage, 'Next: ', nextPage)
+    //Prevent page value from exceeding the total possible pages
+    const count = await Url.count({ userId });
+    const totalPages = Math.ceil(count / 5);
+    if (totalPages === pageValue) {
+        nextPage = pageValue;
+        if (pageValue === 1) {
+            previousPage = 1;
+        } else {
+            previousPage = pageValue - 1;
+        }
+    }
 
     const urls = await Url.find({ userId })
     .sort({ createdAt: -1 })
@@ -110,20 +120,36 @@ export const urlsHistoryService = async (userId: string, page: string) => {
  }
 
 
- export const urlAnalyticsService = async (urlCode: string, page: string) => {
+ export const urlAnalyticsService = async (urlCode: string, page: string, pageStatus: string) => {
+    let previousPage = 0;
+    let nextPage = 0;
     const pageValue = parseInt(page);
-    let previousPage = pageValue;
-    let nextPage = pageValue + 1;
-    const count = await UrlAnalytics.count({ urlCode });
-    const totalPages = Math.ceil(count / 10);
-    
-    if (totalPages === pageValue) {
-        nextPage = pageValue;
+    if (pageStatus == 'next') {
+        previousPage = pageValue;
+        nextPage = pageValue + 1;
+    } else if (pageStatus == 'prev') {
+        if (pageValue === 1) {
+            previousPage = 1;
+        } else {
+            previousPage = pageValue - 1;
+        }
     }
 
+    //Prevent page value from exceeding the total possible pages
+    const count = await Url.count({ urlCode });
+    const totalPages = Math.ceil(count / 10);
+    if (totalPages === pageValue) {
+        nextPage = pageValue;
+        if (pageValue === 1) {
+            previousPage = 1;
+        } else {
+            previousPage = pageValue - 1;
+        }
+    }
+    
     const analytics = await UrlAnalytics.find({ urlCode })
     .sort({ clickCount: -1 })
-    .limit(5)
+    .limit(10)
     .skip((pageValue - 1) * 10)
     .exec();
 
