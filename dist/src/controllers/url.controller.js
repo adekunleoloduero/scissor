@@ -41,6 +41,7 @@ dotenv_1.default.config();
 const url_service_1 = require("../services/url.service");
 const validUrl = __importStar(require("valid-url"));
 const configs_1 = require("../configs");
+// import * as requestIp from 'request-ip';
 const shortenUrlController = function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const { longUrl } = req.body;
@@ -52,9 +53,10 @@ const shortenUrlController = function (req, res, next) {
             baseUrl = configs_1.config.BASE_URL;
         }
         const userId = req.user.id;
+        const origin = req.headers.referer;
         //Validate the base url
         if (!validUrl.isUri(baseUrl)) {
-            if (req.url.startsWith('/api')) {
+            if (origin === null || origin === void 0 ? void 0 : origin.endsWith('/api-docs/')) {
                 return res.status(400).json('Invalid domain');
             }
             else {
@@ -68,7 +70,7 @@ const shortenUrlController = function (req, res, next) {
             //Validate the original url before proceeding
             if (validUrl.isUri(longUrl)) {
                 const url = yield (0, url_service_1.shortenUrlService)(req.body, userId, baseUrl);
-                if (req.url.startsWith('/api')) {
+                if (origin === null || origin === void 0 ? void 0 : origin.endsWith('/api-docs/')) {
                     return res.status(201).json(url);
                 }
                 else {
@@ -79,7 +81,7 @@ const shortenUrlController = function (req, res, next) {
                 }
             }
             else {
-                if (req.url.startsWith('/api')) {
+                if (origin === null || origin === void 0 ? void 0 : origin.endsWith('/api-docs/')) {
                     return res.status(400).json('Invalid or broken url');
                 }
                 else {
@@ -101,6 +103,7 @@ exports.shortenUrlController = shortenUrlController;
 const returnLongUrlController = function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const { urlCode } = req.params;
+        const origin = req.headers.referer;
         let ip = '';
         if (process.env.NODE_ENV == 'production') {
             ip = req.ip;
@@ -112,7 +115,6 @@ const returnLongUrlController = function (req, res, next) {
         try {
             const url = yield (0, url_service_1.returnLongUrlService)(urlCode, ip);
             const longUrl = (url === null || url === void 0 ? void 0 : url.longUrl) || '/';
-            const origin = req.headers.referer;
             if (origin === null || origin === void 0 ? void 0 : origin.endsWith('/api-docs/')) {
                 return res.status(200).json({ longUrl });
             }
@@ -131,9 +133,10 @@ exports.returnLongUrlController = returnLongUrlController;
 const getUrlByIdController = function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const id = req.params.id;
+        const origin = req.headers.referer;
         try {
             const url = yield (0, url_service_1.getUrlByIdService)(id);
-            if (req.url.startsWith('/api')) {
+            if (origin === null || origin === void 0 ? void 0 : origin.endsWith('/api-docs/')) {
                 return res.status(200).json(url);
             }
             else {
@@ -154,9 +157,11 @@ const urlsHistoryController = function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const userId = req.user.id;
         const page = req.params.page;
+        const pageStatus = req.params.pageStatus;
+        const origin = req.headers.referer;
         try {
-            const urlsHistory = yield (0, url_service_1.urlsHistoryService)(userId, page);
-            if (req.url.startsWith('/api')) {
+            const urlsHistory = yield (0, url_service_1.urlsHistoryService)(userId, page, pageStatus);
+            if (origin === null || origin === void 0 ? void 0 : origin.endsWith('/api-docs/')) {
                 return res.status(200).json(urlsHistory);
             }
             else {
@@ -177,9 +182,11 @@ const urlAnalyticsController = function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const urlCode = req.params.urlCode;
         const page = req.params.page;
+        const pageStatus = req.params.pageStatus;
+        const origin = req.headers.referer;
         try {
-            const urlAnalytics = yield (0, url_service_1.urlAnalyticsService)(urlCode, page);
-            if (req.url.startsWith('/api')) {
+            const urlAnalytics = yield (0, url_service_1.urlAnalyticsService)(urlCode, page, pageStatus);
+            if (origin === null || origin === void 0 ? void 0 : origin.endsWith('/api-docs/')) {
                 return res.status(200).json(urlAnalytics);
             }
             else {
@@ -196,18 +203,3 @@ const urlAnalyticsController = function (req, res, next) {
     });
 };
 exports.urlAnalyticsController = urlAnalyticsController;
-//Delete a url
-// export const deleteUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-//     const id = req.params.id;
-//     try {
-//         const url= await deleteUrlService(id);
-//         if (req.url.startsWith('/api')) {
-//             return res.status(200).json(url);
-//         } else {
-//             return res.status(200).redirect('/urls/history/1/5');
-//         }
-//     } catch(error) {
-//         console.log(error);
-//         next(error);
-//     }
-//  }

@@ -220,9 +220,16 @@ export const getUrlsHistory = {
             name: 'page',
             type: 'string',
             in: 'path',
-            description: 'Page Number',
+            description: 'Page Number. Must be greater than 0',
             required: true
-        }
+        },
+        {
+          name: 'pageStatus',
+          type: 'string',
+          in: 'path',
+          description: 'Page Status - Its value can be either "prev" or "next"',
+          required: true
+      }
     ],     
     responses: {
         '200': {
@@ -291,9 +298,16 @@ export const getUrlAnalytics = {
             name: 'page',
             type: 'string',
             in: 'path',
-            description: 'Page Number',
+            description: 'Page Number. Must be greater than 0',
             required: true
-        }
+        },
+        {
+          name: 'pageStatus',
+          type: 'string',
+          in: 'path',
+          description: 'Page Status - Its value can be either "prev" or "next"',
+          required: true
+      }
     ],     
     responses: {
         '200': {

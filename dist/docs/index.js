@@ -55,10 +55,10 @@ const apiDocumentation = {
         '/api/urls/{id}': {
             get: urls_1.getUrlById
         },
-        '/api/urls/history/{page}': {
+        '/api/urls/history/{page}/{pageStatus}': {
             get: urls_1.getUrlsHistory
         },
-        '/api/urls/analytics/{urlCode}/{page}': {
+        '/api/urls/analytics/{urlCode}/{page}/{pageStatus}': {
             get: urls_1.getUrlAnalytics
         }
     },

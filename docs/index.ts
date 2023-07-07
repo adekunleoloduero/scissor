@@ -63,10 +63,10 @@ const apiDocumentation = {
       '/api/urls/{id}': {
         get: getUrlById
       },
-      '/api/urls/history/{page}': {
+      '/api/urls/history/{page}/{pageStatus}': {
         get: getUrlsHistory
       },
-      '/api/urls/analytics/{urlCode}/{page}': {
+      '/api/urls/analytics/{urlCode}/{page}/{pageStatus}': {
         get: getUrlAnalytics
       }
     },

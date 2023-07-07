@@ -20,7 +20,7 @@
             <% if (urlsHistory.urls && urlsHistory.urls.length > 0) { %>
                 <% for (let i = 0; i < urlsHistory.urls.length; i++) { %>
                     <div class="url-summary">
-                        <a href="/urls/<%= urlsHistory.urls[i]._id %>">
+                        <a href="/api/urls/<%= urlsHistory.urls[i]._id %>">
                             <div class="url-info">
                                 <div>
                                     <h4>Description</h4>
@@ -42,8 +42,8 @@
                     </div>
                 <% } %>
                 <div class="pagination">
-                    <a href="/urls/history/<%= urlsHistory.previousPage %>/prev"><< Previous</a>
-                    <a href="/urls/history/<%= urlsHistory.nextPage %>/next">Next >></a>
+                    <a href="/api/urls/history/<%= urlsHistory.previousPage %>/prev"><< Previous</a>
+                    <a href="/api/urls/history/<%= urlsHistory.nextPage %>/next">Next >></a>
                 </div>
             <% } else { %>
                 <p>Your URLs history is currently empty.</p>

@@ -13,7 +13,7 @@ import {
 
 import * as validUrl from 'valid-url';
 import { config } from '../configs';
-import * as requestIp from 'request-ip';
+// import * as requestIp from 'request-ip';
 
 
 
@@ -28,10 +28,11 @@ export const shortenUrlController = async function (req: express.Request, res: e
     }
    
     const userId = req.user.id;
+    const origin = req.headers.referer;
 
     //Validate the base url
     if (!validUrl.isUri(baseUrl)) {
-        if (req.url.startsWith('/api')) {
+        if (origin?.endsWith('/api-docs/')) {
             return res.status(400).json('Invalid domain');
         } else {
             return res.render('shortenUrl', {
@@ -45,7 +46,7 @@ export const shortenUrlController = async function (req: express.Request, res: e
         //Validate the original url before proceeding
         if (validUrl.isUri(longUrl)) {
             const url = await shortenUrlService(req.body, userId, baseUrl);
-            if (req.url.startsWith('/api')) {
+            if (origin?.endsWith('/api-docs/')) {
                 return res.status(201).json(url);
             } else {
                 return res.render('viewUrl', {
@@ -54,7 +55,7 @@ export const shortenUrlController = async function (req: express.Request, res: e
                 })
             }
         } else {
-            if (req.url.startsWith('/api')) {
+            if (origin?.endsWith('/api-docs/')) {
                 return res.status(400).json('Invalid or broken url');
             } else {
                 return res.render('shortenUrl', {
@@ -74,6 +75,8 @@ export const shortenUrlController = async function (req: express.Request, res: e
 //Return long url in place  of short url
  export const returnLongUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
     const { urlCode } = req.params;
+    const origin = req.headers.referer;
+
     let ip: string = ''; 
     if (process.env.NODE_ENV == 'production') {
         ip = req.ip;
@@ -85,8 +88,6 @@ export const shortenUrlController = async function (req: express.Request, res: e
     try {
         const url = await returnLongUrlService(urlCode, ip);
         const longUrl = url?.longUrl || '/';
-        const origin = req.headers.referer;
-        
         if (origin?.endsWith('/api-docs/')) {
             return res.status(200).json({ longUrl });
         } else {
@@ -101,9 +102,11 @@ export const shortenUrlController = async function (req: express.Request, res: e
 //Get url by urlCode
  export const getUrlByIdController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
     const id = req.params.id;
+    const origin = req.headers.referer;
+
     try {
         const url= await getUrlByIdService(id);
-        if (req.url.startsWith('/api')) {
+        if (origin?.endsWith('/api-docs/')) {
             return res.status(200).json(url);
         } else {
             return res.status(200).render('viewUrl', {
@@ -122,9 +125,11 @@ export const urlsHistoryController = async function (req: express.Request, res: 
     const userId = req.user.id as string;
     const page = req.params.page as string;
     const pageStatus = req.params.pageStatus as string;
+    const origin = req.headers.referer;
+
     try {
         const urlsHistory = await urlsHistoryService(userId, page, pageStatus);
-        if (req.url.startsWith('/api')) {
+        if (origin?.endsWith('/api-docs/')) {
             return res.status(200).json(urlsHistory);
         } else {
             return res.status(200).render('urlsHistory', {
@@ -143,11 +148,11 @@ export const urlAnalyticsController = async function (req: express.Request, res:
     const urlCode = req.params.urlCode;
     const page = req.params.page as string;
     const pageStatus = req.params.pageStatus as string;
-    console.log(page);
-    console.log(pageStatus);
+    const origin = req.headers.referer;
+
     try {
         const urlAnalytics = await urlAnalyticsService(urlCode, page, pageStatus);
-        if (req.url.startsWith('/api')) {
+        if (origin?.endsWith('/api-docs/')) {
             return res.status(200).json(urlAnalytics);
         } else {
             return res.render('urlAnalytics', {
@@ -161,19 +166,3 @@ export const urlAnalyticsController = async function (req: express.Request, res:
     }
  }
 
-
-//Delete a url
-// export const deleteUrlController = async function (req: express.Request, res: express.Response, next: express.NextFunction) {
-//     const id = req.params.id;
-//     try {
-//         const url= await deleteUrlService(id);
-//         if (req.url.startsWith('/api')) {
-//             return res.status(200).json(url);
-//         } else {
-//             return res.status(200).redirect('/urls/history/1/5');
-//         }
-//     } catch(error) {
-//         console.log(error);
-//         next(error);
-//     }
-//  }
