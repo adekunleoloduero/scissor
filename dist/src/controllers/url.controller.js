@@ -41,7 +41,6 @@ dotenv_1.default.config();
 const url_service_1 = require("../services/url.service");
 const validUrl = __importStar(require("valid-url"));
 const configs_1 = require("../configs");
-// import * as requestIp from 'request-ip';
 const shortenUrlController = function (req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         const { longUrl } = req.body;
@@ -52,10 +51,10 @@ const shortenUrlController = function (req, res, next) {
         else {
             baseUrl = configs_1.config.BASE_URL;
         }
-        const userId = req.user.id;
+        const userId = req.user.id.trim();
         const origin = req.headers.referer;
         //Validate the base url
-        if (!validUrl.isUri(baseUrl)) {
+        if (!validUrl.isUri(`https://www.${baseUrl}`)) {
             if (origin === null || origin === void 0 ? void 0 : origin.endsWith('/api-docs/')) {
                 return res.status(400).json('Invalid domain');
             }

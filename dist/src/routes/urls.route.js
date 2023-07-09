@@ -8,7 +8,7 @@ exports.default = (router) => {
     //Redirect to original URL
     router.get('/:urlCode', url_controller_1.returnLongUrlController);
     //Get URL by
-    router.get('/api/urls/:id', auth_middleware_1.authenticateUser, url_controller_1.getUrlByIdController);
+    router.get('/api/urls/view/:id', auth_middleware_1.authenticateUser, url_controller_1.getUrlByIdController);
     //Url Analytics
     router.get('/api/urls/analytics/:urlCode/:page/:pageStatus', auth_middleware_1.authenticateUser, url_controller_1.urlAnalyticsController);
     //URLs history

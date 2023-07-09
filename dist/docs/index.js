@@ -52,7 +52,7 @@ const apiDocumentation = {
         '/{urlCode}': {
             get: urls_1.returnLongUrl
         },
-        '/api/urls/{id}': {
+        '/api/urls/view/{id}': {
             get: urls_1.getUrlById
         },
         '/api/urls/history/{page}/{pageStatus}': {

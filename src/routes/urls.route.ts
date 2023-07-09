@@ -15,12 +15,12 @@ import { authenticateUser } from '../middlewares/auth.middleware';
 export default (router: express.Router ): void => {
     //Shorten URL
     router.post('/api/urls/shorten', authenticateUser, shortenUrlController);
-    
+
     //Redirect to original URL
     router.get('/:urlCode', returnLongUrlController);
       
     //Get URL by
-    router.get('/api/urls/:id', authenticateUser, getUrlByIdController);
+    router.get('/api/urls/view/:id', authenticateUser, getUrlByIdController);
 
     //Url Analytics
     router.get('/api/urls/analytics/:urlCode/:page/:pageStatus', authenticateUser, urlAnalyticsController);

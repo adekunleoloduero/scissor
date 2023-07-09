@@ -13,7 +13,6 @@ import {
 
 import * as validUrl from 'valid-url';
 import { config } from '../configs';
-// import * as requestIp from 'request-ip';
 
 
 
@@ -27,11 +26,11 @@ export const shortenUrlController = async function (req: express.Request, res: e
         baseUrl = config.BASE_URL;
     }
    
-    const userId = req.user.id;
+    const userId: string = req.user.id.trim();
     const origin = req.headers.referer;
 
     //Validate the base url
-    if (!validUrl.isUri(baseUrl)) {
+    if (!validUrl.isUri(`https://www.${baseUrl}`)) {
         if (origin?.endsWith('/api-docs/')) {
             return res.status(400).json('Invalid domain');
         } else {

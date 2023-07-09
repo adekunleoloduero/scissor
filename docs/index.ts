@@ -60,7 +60,7 @@ const apiDocumentation = {
       '/{urlCode}': {
         get: returnLongUrl
       },
-      '/api/urls/{id}': {
+      '/api/urls/view/{id}': {
         get: getUrlById
       },
       '/api/urls/history/{page}/{pageStatus}': {

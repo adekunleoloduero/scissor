@@ -20,7 +20,7 @@
             <% if (urlsHistory.urls && urlsHistory.urls.length > 0) { %>
                 <% for (let i = 0; i < urlsHistory.urls.length; i++) { %>
                     <div class="url-summary">
-                        <a href="/api/urls/<%= urlsHistory.urls[i]._id %>">
+                        <a href="/api/urls/view/<%= urlsHistory.urls[i]._id %>">
                             <div class="url-info">
                                 <div>
                                     <h4>Description</h4>
